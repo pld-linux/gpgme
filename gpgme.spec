@@ -6,14 +6,13 @@
 Summary:	Library for accessing GnuPG
 Summary(pl):	Biblioteka daj±ca dostêp do funkcji GnuPG
 Name:		gpgme
-Version:	0.4.6
+Version:	0.4.7
 Release:	1
 License:	GPL v2+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/gpgme/%{name}-%{version}.tar.gz
-# Source0-md5:	c7f63769107841d448d29def81a0ba3d
+# Source0-md5:	c43a50de6b1220d5a1b59b0deb142e14
 Patch0:		%{name}-info.patch
-Patch1:		%{name}-am18.patch
 URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1.7.6
@@ -61,7 +60,6 @@ Statyczna wersja biblioteki GPGME.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__libtoolize}
