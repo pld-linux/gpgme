@@ -23,7 +23,7 @@ BuildRequires:	libtool
 %{?with_pth:BuildRequires:	pth-devel >= 1.2.0}
 BuildRequires:	texinfo
 BuildConflicts:	gnupg < 1.2.2
-Requires:	gnupg >= 1.2.2
+%{!?with_gpgsm:Requires:	gnupg >= 1.2.2}
 %{?with_gpgsm:Requires:	gnupg >= 1.9.8}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
