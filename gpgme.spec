@@ -1,13 +1,15 @@
 #
 # Conditional build:
-%bcond_without	pth	# without pth-based version of library
+%bcond_with	gpgsm		# with gpgsm support
+%bcond_without	pth		# without pth-based version of library
+%bcond_without	static_libs	# Do not build static libraries
 #
 # TODO: separate pth version? disable by default (if !needed at all)?
 Summary:	Library for accessing GnuPG
 Summary(pl):	Biblioteka daj±ca dostêp do funkcji GnuPG
 Name:		gpgme
 Version:	0.4.7
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/gpgme/%{name}-%{version}.tar.gz
@@ -22,6 +24,7 @@ BuildRequires:	libtool
 BuildRequires:	texinfo
 BuildConflicts:	gnupg < 1.2.2
 Requires:	gnupg >= 1.2.2
+%{?with_gpgsm:Requires:	gnupg >= 1.9.8}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -67,9 +70,9 @@ Statyczna wersja biblioteki GPGME.
 %{__autoconf}
 %{__automake}
 %configure \
-	--enable-shared \
-	--enable-static \
-	--without-gpgsm \
+	%{?with_static_libs:--enable-static} \
+	%{?with_gpgsm:--with-gpgsm=%{_bindir}/gpgsm} \
+	%{!?with_gpgsm:--without-gpgsm} \
 	%{!?with_pth:--without-pth}
 
 %{__make}
@@ -106,6 +109,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_aclocaldir}/*.m4
 %{_infodir}/*.info*
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/lib*.a
+%endif
