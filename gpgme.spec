@@ -2,12 +2,13 @@ Summary:	Library for accessing GnuPG
 Summary(pl):	Biblioteka daj±ca dostep do funkcji GnuPG
 Name:		gpgme
 Version:	0.3.16
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.gz
 # Source0-md5:	0476b219695ea25cb2a97b18b717e381
 Patch0:		%{name}-info.patch
+Patch1:		%{name}-ac_quotation_fix.patch
 URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -27,7 +28,7 @@ Biblioteka daj±ca dostêp do funkcji GnuPG.
 Summary:	Header files for %{name}
 Summary(pl):	Pliki nag³ówkowe dla %{name}
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Requires:	libgpg-error-devel
 
 %description devel
@@ -41,7 +42,7 @@ u¿ywaj±cych %{name}.
 Summary:	Static version of %{name} library
 Summary(pl):	Statyczna wersja biblioteki %{name}
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static version of %{name} library.
@@ -52,6 +53,7 @@ Statyczna wersja biblioteki %{name}.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 rm -f missing
