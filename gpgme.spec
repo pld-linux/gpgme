@@ -10,6 +10,7 @@ Summary(pl):	Biblioteka daj±ca dostêp do funkcji GnuPG
 Name:		gpgme
 Version:	1.0.2
 Release:	2
+Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.bz2
@@ -38,7 +39,7 @@ Biblioteka daj±ca dostêp do funkcji GnuPG.
 Summary:	Header files for GPGME library
 Summary(pl):	Pliki nag³ówkowe biblioteki GPGME
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	libgpg-error-devel >= 0.5
 
 %description devel
@@ -53,7 +54,7 @@ u¿ywaj±cych GPGME.
 Summary:	Static version of GPGME library
 Summary(pl):	Statyczna wersja biblioteki GPGME
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
 %description static
 Static version of GPGME library.
