@@ -2,7 +2,7 @@ Summary:	Library for accessing GnuPG
 Summary(pl):	Biblioteka daj±ca dostep do funkcji GnuPG
 Name:		gpgme
 Version:	0.3.5
-Release:	1
+Release:	2
 License:	GPLv2
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/gpgme/%{name}-%{version}.tar.gz
@@ -66,8 +66,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-gzip -9nf README ChangeLog THANKS TODO NEWS AUTHORS
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -82,16 +80,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
-%attr(755,root,root) %{_bindir}/*
+%doc README ChangeLog THANKS TODO NEWS AUTHORS
 %attr(755,root,root) %{_libdir}/*.so.*.*
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/gpgme-config
-%{_includedir}/*
 %attr(755,root,root) %{_libdir}/lib*.so
 %attr(755,root,root) %{_libdir}/lib*.la
+%{_includedir}/*
 %{_aclocaldir}/%{name}.m4
 %{_infodir}/*.info*
 
