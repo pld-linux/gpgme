@@ -23,7 +23,7 @@ Biblioteka daj±ca dostep do funkcji GnuPG.
 
 %package devel
 Summary:	Header files for %{name}
-Summary(pl):	Pliki nag³ównkowe dla %{name}
+Summary(pl):	Pliki nag³ówkowe dla %{name}
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
 
@@ -36,7 +36,7 @@ u¿ywaj±cych %{name}.
 
 %package static
 Summary:	Static version of %{name} library
-Summary:	Statyczna wersja biblioteki %{name}
+Summary(pl):	Statyczna wersja biblioteki %{name}
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}
 
