@@ -14,6 +14,7 @@ BuildRequires:	automake
 BuildRequires:	libgpg-error-devel >= 0.1
 BuildRequires:	libtool
 BuildRequires:	texinfo
+BuildConflicts:	gnupg <= 1.2.2
 Requires:	gnupg >= 1.2.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
