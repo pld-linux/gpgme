@@ -19,7 +19,8 @@ Biblioteka daj±ca dostep do funkcji GnuPG.
 %package devel
 Summary:	Header files for %{name}
 Summary(pl):	Pliki nag³ównkowe dla %{name}
-Group:		Development/Librarie
+Group:		Development/Libraries
+Requires:	%{name} = %{version}
 
 %description devel
 Header files for %{name}, needed for compiling programs using %{name}.
@@ -32,6 +33,7 @@ u¿ywaj±cych %{name}.
 Summary:	Static version of %{name} library
 Summary:	Statyczna wersja biblioteki %{name}
 Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}
 
 %description static
 Static version of %{name} library.
@@ -69,14 +71,16 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc *.gz
 %attr(755,root,root) %{_bindir}/*
-%{_libdir}/*.so.*.*
+%attr(755,root,root) %{_libdir}/*.so.*.*
 
 %files devel
-%{_bindir}/gpgme-config
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/gpgme-config
 %{_includedir}/*
 %{_libdir}/*.so
 %{_aclocaldir}/%{name}.m4
-%{_infodir}/*.gz
+%{_infodir}/*.info*
 
 %files static
+%defattr(644,root,root,755)
 %{_libdir}/*.a
