@@ -3,7 +3,7 @@ Summary(pl):	Biblioteka daj±ca dostêp do funkcji GnuPG
 Name:		gpgme
 Version:	0.4.2
 Release:	1
-License:	GPL v2
+License:	GPL v2+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/gpgme/%{name}-%{version}.tar.gz
 # Source0-md5:	695990d1ca3e167a99eaceebb1e74b1d
@@ -11,10 +11,10 @@ Patch0:		%{name}-info.patch
 URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
-BuildRequires:	libgpg-error-devel
+BuildRequires:	libgpg-error-devel >= 0.1
 BuildRequires:	libtool
 BuildRequires:	texinfo
-Requires:	gnupg >= 1.2.0
+Requires:	gnupg >= 1.2.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -85,7 +85,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README ChangeLog THANKS TODO NEWS AUTHORS
-%attr(755,root,root) %{_libdir}/*.so.*.*
+%attr(755,root,root) %{_libdir}/lib*.so.*.*
 
 %files devel
 %defattr(644,root,root,755)
