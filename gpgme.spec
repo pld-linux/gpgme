@@ -1,5 +1,5 @@
 Summary:	Library for accessing GnuPG
-Summary(pl):	Biblioteka daj±ca dostep do funkcji GnuPG
+Summary(pl):	Biblioteka daj±ca dostêp do funkcji GnuPG
 Name:		gpgme
 Version:	0.4.1
 Release:	1
@@ -67,7 +67,8 @@ rm -f missing
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
