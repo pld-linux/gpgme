@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_with	gpgsm		# with gpgsm support
+%bcond_with	gpgsm		# with gnupg S/MIME support
 %bcond_without	pth		# without pth-based version of library
 %bcond_without	static_libs	# Do not build static libraries
 #
