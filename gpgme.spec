@@ -16,8 +16,8 @@ Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.bz2
 # Source0-md5:	25513fd35593bad08c1e486878296b40
 Patch0:		%{name}-info.patch
 URL:		http://www.gnupg.org/gpgme.html
-BuildRequires:	autoconf >= 2.57
-BuildRequires:	automake >= 1:1.7.6
+BuildRequires:	autoconf >= 2.59
+BuildRequires:	automake >= 1:1.9.3
 BuildRequires:	libgpg-error-devel >= 0.5
 BuildRequires:	libtool
 %{?with_pth:BuildRequires:	pth-devel >= 1.2.0}
