@@ -6,6 +6,7 @@ Release:	1
 License:	GPL v2
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/gpgme/%{name}-%{version}.tar.gz
+# Source0-md5: 41e144b403293484bcb3e1409fbe6a35
 Patch0:		%{name}-info.patch
 URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.52
