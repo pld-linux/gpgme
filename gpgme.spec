@@ -1,30 +1,23 @@
-#
-# Conditional build:
-%bcond_with	gpgsm		# with gnupg S/MIME support
-%bcond_without	pth		# without pth-based version of library
-%bcond_without	static_libs	# Do not build static libraries
-#
-# TODO: separate pth version? disable by default (if !needed at all)?
 Summary:	Library for accessing GnuPG
-Summary(pl):	Biblioteka daj±ca dostêp do funkcji GnuPG
+Summary(pl):	Biblioteka daj±ca dostep do funkcji GnuPG
 Name:		gpgme
-Version:	0.9.0
-Release:	1
-License:	GPL v2+
+Version:	0.3.16
+Release:	3
+Epoch:		1
+License:	GPL v2
 Group:		Libraries
-Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/gpgme/%{name}-%{version}.tar.gz
-# Source0-md5:	0dd9e49de783669eb307d2e4b897484d
+Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.gz
+# Source0-md5:	0476b219695ea25cb2a97b18b717e381
 Patch0:		%{name}-info.patch
+Patch1:		%{name}-ac_quotation_fix.patch
 URL:		http://www.gnupg.org/gpgme.html
-BuildRequires:	autoconf >= 2.57
-BuildRequires:	automake >= 1.7.6
-BuildRequires:	libgpg-error-devel >= 0.5
+BuildRequires:	autoconf >= 2.52
+BuildRequires:	automake
+BuildRequires:	libgpg-error-devel
 BuildRequires:	libtool
-%{?with_pth:BuildRequires:	pth-devel >= 1.2.0}
 BuildRequires:	texinfo
-BuildConflicts:	gnupg < 1.2.2
-%{!?with_gpgsm:Requires:	gnupg >= 1.2.2}
-%{?with_gpgsm:Requires:	gnupg >= 1.9.8}
+Requires:	gnupg >= 1.2.0
+Obsoletes:	cryptplug
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -34,54 +27,51 @@ A library for accessing GnuPG.
 Biblioteka daj±ca dostêp do funkcji GnuPG.
 
 %package devel
-Summary:	Header files for GPGME library
-Summary(pl):	Pliki nag³ówkowe biblioteki GPGME
+Summary:	Header files for %{name}
+Summary(pl):	Pliki nag³ówkowe dla %{name}
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
-Requires:	libgpg-error-devel >= 0.5
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	libgpg-error-devel
 
 %description devel
-Header files for GPGME library, needed for compiling programs using
-GPGME.
+Header files for %{name}, needed for compiling programs using %{name}.
 
 %description devel -l pl
-Pliki nag³ówkowe biblioteki GPGME, potrzebne do kompilacji programów
-u¿ywaj±cych GPGME.
+Pliki nag³ówkowe dla %{name}, potrzebne do kompilacji programów
+u¿ywaj±cych %{name}.
 
 %package static
-Summary:	Static version of GPGME library
-Summary(pl):	Statyczna wersja biblioteki GPGME
+Summary:	Static version of %{name} library
+Summary(pl):	Statyczna wersja biblioteki %{name}
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
 %description static
-Static version of GPGME library.
+Static version of %{name} library.
 
 %description static -l pl
-Statyczna wersja biblioteki GPGME.
+Statyczna wersja biblioteki %{name}.
 
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
+rm -f missing
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
 %{__automake}
 %configure \
-	%{?with_static_libs:--enable-static} \
-	%{?with_gpgsm:--with-gpgsm=%{_bindir}/gpgsm} \
-	%{!?with_gpgsm:--without-gpgsm} \
-	%{!?with_pth:--without-pth}
+	--without-gpgsm
 
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+%{__make} install DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -98,7 +88,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README ChangeLog THANKS TODO NEWS AUTHORS
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
+%attr(755,root,root) %{_libdir}/*.so.*.*
 
 %files devel
 %defattr(644,root,root,755)
@@ -109,8 +99,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_aclocaldir}/*.m4
 %{_infodir}/*.info*
 
-%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/lib*.a
-%endif
