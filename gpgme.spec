@@ -19,7 +19,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 A library for accessing GnuPG.
 
 %description -l pl
-Biblioteka daj±ca dostêp do funckji GnuPG.
+Biblioteka daj±ca dostêp do funkcji GnuPG.
 
 %package devel
 Summary:	Header files for %{name}
@@ -31,7 +31,7 @@ Requires:	%{name} = %{version}
 Header files for %{name}, needed for compiling programs using %{name}.
 
 %description devel -l pl
-Pliki nag³ównkowe dla %{name} potrzebne do kompilacji programów
+Pliki nag³ówkowe dla %{name}, potrzebne do kompilacji programów
 u¿ywaj±cych %{name}.
 
 %package static
