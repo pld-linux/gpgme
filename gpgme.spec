@@ -6,18 +6,17 @@
 Summary:	Library for accessing GnuPG
 Summary(pl):	Biblioteka daj±ca dostêp do funkcji GnuPG
 Name:		gpgme
-Version:	0.4.4
+Version:	0.4.5
 Release:	1
 License:	GPL v2+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/gpgme/%{name}-%{version}.tar.gz
-# Source0-md5:	500587f9a31c8a72ba36c6b893575ce1
+# Source0-md5:	f04bc4feb818f55107910d17273adf98
 Patch0:		%{name}-info.patch
-Patch1:		%{name}-acfix.patch
-Patch2:		%{name}-am18.patch
+Patch1:		%{name}-am18.patch
 URL:		http://www.gnupg.org/gpgme.html
-BuildRequires:	autoconf >= 2.52
-BuildRequires:	automake
+BuildRequires:	autoconf >= 2.57
+BuildRequires:	automake >= 1.7.6
 BuildRequires:	libgpg-error-devel >= 0.5
 BuildRequires:	libtool
 %{?with_pth:BuildRequires:	pth-devel >= 1.2.0}
@@ -36,8 +35,8 @@ Biblioteka daj±ca dostêp do funkcji GnuPG.
 Summary:	Header files for %{name}
 Summary(pl):	Pliki nag³ówkowe dla %{name}
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
-Requires:	libgpg-error-devel
+Requires:	%{name} = %{version}-%{release}
+Requires:	libgpg-error-devel >= 0.5
 
 %description devel
 Header files for %{name}, needed for compiling programs using %{name}.
@@ -50,7 +49,7 @@ u¿ywaj±cych %{name}.
 Summary:	Static version of %{name} library
 Summary(pl):	Statyczna wersja biblioteki %{name}
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static version of %{name} library.
@@ -62,7 +61,6 @@ Statyczna wersja biblioteki %{name}.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 %{__libtoolize}
