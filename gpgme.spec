@@ -1,3 +1,8 @@
+#
+# Conditional build:
+%bcond_without	pth	# without pth-based version of library
+#
+# TODO: separate pth version? disable by default (if !needed at all)?
 Summary:	Library for accessing GnuPG
 Summary(pl):	Biblioteka daj±ca dostêp do funkcji GnuPG
 Name:		gpgme
@@ -8,11 +13,13 @@ Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/gpgme/%{name}-%{version}.tar.gz
 # Source0-md5:	a4cb2a2ba1689f0376bc1affc987f183
 Patch0:		%{name}-info.patch
+Patch1:		%{name}-acfix.patch
 URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	libgpg-error-devel >= 0.5
 BuildRequires:	libtool
+%{?with_pth:BuildRequires:	pth-devel >= 1.2.0}
 BuildRequires:	texinfo
 BuildConflicts:	gnupg < 1.2.2
 Requires:	gnupg >= 1.2.2
@@ -53,9 +60,9 @@ Statyczna wersja biblioteki %{name}.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
-rm -f missing
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
@@ -63,7 +70,8 @@ rm -f missing
 %configure \
 	--enable-shared \
 	--enable-static \
-	--without-gpgsm
+	--without-gpgsm \
+	%{!?with_pth:--without-pth}
 
 %{__make}
 
