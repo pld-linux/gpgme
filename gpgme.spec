@@ -1,25 +1,25 @@
 Summary:	Library for accessing GnuPG
 Summary(pl):	Biblioteka daj±ca dostep do funkcji GnuPG
 Name:		gpgme
-Version:	0.3.12
+Version:	0.3.14
 Release:	1
 License:	GPL v2
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/gpgme/%{name}-%{version}.tar.gz
 Patch0:		%{name}-info.patch
 URL:		http://www.gnupg.org/gpgme.html
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	texinfo
-Requires:	gnupg
+Requires:	gnupg >= 1.2.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 A library for accessing GnuPG.
 
 %description -l pl
-Biblioteka daj±ca dostep do funkcji GnuPG.
+Biblioteka daj±ca dostêp do funckji GnuPG.
 
 %package devel
 Summary:	Header files for %{name}
@@ -89,7 +89,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_libdir}/lib*.la
 %{_includedir}/*
-%{_aclocaldir}/%{name}.m4
+%{_aclocaldir}/*.m4
 %{_infodir}/*.info*
 
 %files static
