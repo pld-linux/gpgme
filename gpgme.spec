@@ -2,7 +2,8 @@ Summary:	Library for accessing GnuPG
 Summary(pl):	Biblioteka daj±ca dostep do funkcji GnuPG
 Name:		gpgme
 Version:	0.3.16
-Release:	2
+Release:	3
+Epoch:		1
 License:	GPL v2
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.gz
@@ -16,6 +17,7 @@ BuildRequires:	libgpg-error-devel
 BuildRequires:	libtool
 BuildRequires:	texinfo
 Requires:	gnupg >= 1.2.0
+Obsoletes:	cryptplug
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -28,7 +30,7 @@ Biblioteka daj±ca dostêp do funkcji GnuPG.
 Summary:	Header files for %{name}
 Summary(pl):	Pliki nag³ówkowe dla %{name}
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	libgpg-error-devel
 
 %description devel
@@ -42,7 +44,7 @@ u¿ywaj±cych %{name}.
 Summary:	Static version of %{name} library
 Summary(pl):	Statyczna wersja biblioteki %{name}
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
 %description static
 Static version of %{name} library.
