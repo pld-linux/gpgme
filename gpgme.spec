@@ -1,16 +1,17 @@
 Summary:	Library for accessing GnuPG
 Summary(pl):	Biblioteka daj±ca dostep do funkcji GnuPG
 Name:		gpgme
-Version:	0.4.0
+Version:	0.4.1
 Release:	1
 License:	GPL v2
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/gpgme/%{name}-%{version}.tar.gz
-# Source0-md5: 41e144b403293484bcb3e1409fbe6a35
+# Source0-md5:	a1bbbf4cb23e66799fcd638c1d9437d1
 Patch0:		%{name}-info.patch
 URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
+BuildRequires:	libgpg-error-devel
 BuildRequires:	libtool
 BuildRequires:	texinfo
 Requires:	gnupg >= 1.2.0
@@ -27,6 +28,7 @@ Summary:	Header files for %{name}
 Summary(pl):	Pliki nag³ówkowe dla %{name}
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
+Requires:	libgpg-error-devel
 
 %description devel
 Header files for %{name}, needed for compiling programs using %{name}.
