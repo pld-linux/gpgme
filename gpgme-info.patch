@@ -1,0 +1,14 @@
+--- gpgme-0.3.5/doc/gpgme.texi~	Wed May  1 09:55:04 2002
++++ gpgme-0.3.5/doc/gpgme.texi	Wed May  1 09:55:04 2002
+@@ -2,9 +2,9 @@
+ @setfilename gpgme.info
+ @settitle The `GnuPG Made Easy' Reference Manual
+ 
+-@dircategory GNU Libraries
++@dircategory Libraries:
+ @direntry
+-* @acronym{GPGME}: (gpgme)           Adding support for cryptography to your program.
++* @acronym{GPGME}: (gpgme)			Adding support for cryptography to your program
+ @end direntry
+ 
+ @include version.texi
