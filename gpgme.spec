@@ -9,7 +9,7 @@ Summary:	Library for accessing GnuPG
 Summary(pl):	Biblioteka daj±ca dostêp do funkcji GnuPG
 Name:		gpgme
 Version:	1.0.2
-Release:	3
+Release:	3.8
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
@@ -25,7 +25,7 @@ BuildRequires:	libtool
 BuildRequires:	texinfo
 BuildConflicts:	gnupg < 1.2.2
 %{!?with_gpgsm:Requires:	gnupg >= 1.2.2}
-%{?with_gpgsm:Requires:	gnupg >= 1.9.8}
+%{?with_gpgsm:Requires:	gnupg-smime >= 1.9.8}
 Obsoletes:	cryptplug
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -76,7 +76,8 @@ Statyczna wersja biblioteki GPGME.
 	%{?with_static_libs:--enable-static} \
 	%{?with_gpgsm:--with-gpgsm=%{_bindir}/gpgsm} \
 	%{!?with_gpgsm:--without-gpgsm} \
-	%{!?with_pth:--without-pth}
+	%{!?with_pth:--without-pth} \
+	--with-gpg=/usr/bin/gpg
 
 %{__make}
 
