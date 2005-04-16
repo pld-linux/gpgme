@@ -9,7 +9,7 @@ Summary:	Library for accessing GnuPG
 Summary(pl):	Biblioteka daj±ca dostêp do funkcji GnuPG
 Name:		gpgme
 Version:	1.0.2
-Release:	3.8
+Release:	4
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
