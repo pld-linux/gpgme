@@ -1,0 +1,3 @@
+- use gnupg-smime for gpgsm bcond (provided by gpg2.spec)
+- specify path to gpg binary so gpg support is built even if gpg is
+  not installed at compile time (needed for kmail to work)
