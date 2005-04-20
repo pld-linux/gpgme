@@ -77,7 +77,7 @@ Statyczna wersja biblioteki GPGME.
 	%{?with_gpgsm:--with-gpgsm=%{_bindir}/gpgsm} \
 	%{!?with_gpgsm:--without-gpgsm} \
 	%{!?with_pth:--without-pth} \
-	--with-gpg=/usr/bin/gpg
+	--with-gpg=/usr/bin/gpg%{?with_gpgsm:2}
 
 %{__make}
 
