@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_with	gpgsm		# with gnupg S/MIME support
+%bcond_without	gpgsm		# with gnupg S/MIME support
 %bcond_without	pth		# without pth-based version of library
 %bcond_without	static_libs	# Do not build static libraries
 #
@@ -9,7 +9,7 @@ Summary:	Library for accessing GnuPG
 Summary(pl):	Biblioteka daj±ca dostêp do funkcji GnuPG
 Name:		gpgme
 Version:	1.0.2
-Release:	4
+Release:	5
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
