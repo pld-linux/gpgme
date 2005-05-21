@@ -17,6 +17,7 @@ Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.bz2
 # Source0-md5:	25513fd35593bad08c1e486878296b40
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-gpg2.patch
+Patch2:		%{name}-kill-tests.patch
 URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.9.3
@@ -67,6 +68,7 @@ Statyczna wersja biblioteki GPGME.
 %setup -q
 %patch0 -p1
 %{?with_gpgsm:%patch1 -p1}
+%patch2 -p1
 
 %build
 %{__libtoolize}
