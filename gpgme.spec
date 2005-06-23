@@ -2,19 +2,20 @@
 # Conditional build:
 %bcond_without	gpgsm		# with gnupg S/MIME support
 %bcond_without	pth		# without pth-based version of library
-%bcond_without	static_libs	# Do not build static libraries
+%bcond_without	static_libs	# do not build static libraries
+%bcond_with	tests		# perform tests
 #
 # TODO: separate pth version? disable by default (if !needed at all)?
 Summary:	Library for accessing GnuPG
 Summary(pl):	Biblioteka daj±ca dostêp do funkcji GnuPG
 Name:		gpgme
-Version:	1.0.2
-Release:	5
+Version:	1.0.3
+Release:	1
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.bz2
-# Source0-md5:	25513fd35593bad08c1e486878296b40
+# Source0-md5:	84f85671d63164fb1d338c23010f023d
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-gpg2.patch
 Patch2:		%{name}-kill-tests.patch
@@ -68,7 +69,7 @@ Statyczna wersja biblioteki GPGME.
 %setup -q
 %patch0 -p1
 %{?with_gpgsm:%patch1 -p1}
-%patch2 -p1
+%{!?with_tests:%patch2 -p1}
 
 %build
 %{__libtoolize}
