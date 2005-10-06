@@ -9,13 +9,13 @@
 Summary:	Library for accessing GnuPG
 Summary(pl):	Biblioteka daj±ca dostêp do funkcji GnuPG
 Name:		gpgme
-Version:	1.0.3
+Version:	1.1.0
 Release:	1
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.bz2
-# Source0-md5:	84f85671d63164fb1d338c23010f023d
+# Source0-md5:	9d75ad0d604918bbf8e1ca5ed11ab195
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-gpg2.patch
 Patch2:		%{name}-kill-tests.patch
