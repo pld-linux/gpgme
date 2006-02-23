@@ -9,13 +9,13 @@
 Summary:	Library for accessing GnuPG
 Summary(pl):	Biblioteka daj±ca dostêp do funkcji GnuPG
 Name:		gpgme
-Version:	1.1.0
+Version:	1.1.1
 Release:	1
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.bz2
-# Source0-md5:	9d75ad0d604918bbf8e1ca5ed11ab195
+# Source0-md5:	22791cd3799b409fd6e4796c7238ca5b
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-gpg2.patch
 Patch2:		%{name}-kill-tests.patch
@@ -70,6 +70,9 @@ Statyczna wersja biblioteki GPGME.
 %patch0 -p1
 %{?with_gpgsm:%patch1 -p1}
 %{!?with_tests:%patch2 -p1}
+
+# temporary - mistaken AGE change (double bump which caused SONAME decrease)
+sed -i -e 's/LIBGPGME_LT_AGE=7/LIBGPGME_LT_AGE=6/' configure.ac
 
 %build
 %{__libtoolize}
