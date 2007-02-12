@@ -7,7 +7,7 @@
 #
 # TODO: separate pth version? disable by default (if !needed at all)?
 Summary:	Library for accessing GnuPG
-Summary(pl):	Biblioteka daj±ca dostÍp do funkcji GnuPG
+Summary(pl.UTF-8):   Biblioteka dajƒÖca dostƒôp do funkcji GnuPG
 Name:		gpgme
 Version:	1.1.3
 Release:	1
@@ -35,12 +35,12 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 A library for accessing GnuPG.
 
-%description -l pl
-Biblioteka daj±ca dostÍp do funkcji GnuPG.
+%description -l pl.UTF-8
+Biblioteka dajƒÖca dostƒôp do funkcji GnuPG.
 
 %package devel
 Summary:	Header files for GPGME library
-Summary(pl):	Pliki nag≥Ûwkowe biblioteki GPGME
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe biblioteki GPGME
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	libgpg-error-devel >= 0.5
@@ -49,20 +49,20 @@ Requires:	libgpg-error-devel >= 0.5
 Header files for GPGME library, needed for compiling programs using
 GPGME.
 
-%description devel -l pl
-Pliki nag≥Ûwkowe biblioteki GPGME, potrzebne do kompilacji programÛw
-uøywaj±cych GPGME.
+%description devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe biblioteki GPGME, potrzebne do kompilacji program√≥w
+u≈ºywajƒÖcych GPGME.
 
 %package static
 Summary:	Static version of GPGME library
-Summary(pl):	Statyczna wersja biblioteki GPGME
+Summary(pl.UTF-8):   Statyczna wersja biblioteki GPGME
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
 %description static
 Static version of GPGME library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna wersja biblioteki GPGME.
 
 %prep
