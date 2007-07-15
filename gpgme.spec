@@ -9,27 +9,28 @@
 Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
-Version:	1.1.4
-Release:	2
+Version:	1.1.5
+Release:	1
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.bz2
-# Source0-md5:	3b133a3703f16835e55d1a2f8cfdfa70
+# Source0-md5:	db7d7dfc10edcc20e8a15a7a8fdc1080
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-gpg2.patch
 Patch2:		%{name}-kill-tests.patch
 URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.9.3
-BuildRequires:	libgpg-error-devel >= 0.5
+BuildRequires:	libgpg-error-devel >= 1.4
 BuildRequires:	libtool
 %{?with_pth:BuildRequires:	pth-devel >= 1.2.0}
 BuildRequires:	texinfo
-BuildConflicts:	gnupg < 1.2.2
-%{!?with_gpgsm:Requires:	gnupg >= 1.2.2}
+BuildConflicts:	gnupg < 1.3.0
+%{!?with_gpgsm:Requires:	gnupg >= 1.3.0}
 %{?with_gpgsm:Requires:	gnupg2 >= 2.0.3}
 %{?with_gpgsm:Requires:	gnupg-smime >= 1.9.8}
+Requires:	libgpg-error >= 1.4
 Obsoletes:	cryptplug
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -44,7 +45,7 @@ Summary:	Header files for GPGME library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki GPGME
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	libgpg-error-devel >= 0.5
+Requires:	libgpg-error-devel >= 1.4
 
 %description devel
 Header files for GPGME library, needed for compiling programs using
