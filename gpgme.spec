@@ -9,13 +9,13 @@
 Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
-Version:	1.1.5
-Release:	2
+Version:	1.1.6
+Release:	1
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.bz2
-# Source0-md5:	db7d7dfc10edcc20e8a15a7a8fdc1080
+# Source0-md5:	daddf775ace2594da834f15c8ebb045e
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-gpg2.patch
 Patch2:		%{name}-kill-tests.patch
@@ -109,19 +109,30 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README ChangeLog THANKS TODO NEWS AUTHORS
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
+%attr(755,root,root) %{_libdir}/libgpgme.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgpgme.so.11
+%attr(755,root,root) %{_libdir}/libgpgme-pth.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgpgme-pth.so.11
+%attr(755,root,root) %{_libdir}/libgpgme-pthread.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgpgme-pthread.so.11
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/gpgme-config
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_libdir}/lib*.la
-%{_includedir}/*
-%{_aclocaldir}/*.m4
-%{_infodir}/*.info*
+%attr(755,root,root) %{_libdir}/libgpgme.so
+%attr(755,root,root) %{_libdir}/libgpgme-pth.so
+%attr(755,root,root) %{_libdir}/libgpgme-pthread.so
+%{_libdir}/libgpgme.la
+%{_libdir}/libgpgme-pth.la
+%{_libdir}/libgpgme-pthread.la
+%{_includedir}/gpgme.h
+%{_aclocaldir}/gpgme.m4
+%{_infodir}/gpgme.info*
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libgpgme.a
+%{_libdir}/libgpgme-pth.a
+%{_libdir}/libgpgme-pthread.a
 %endif
