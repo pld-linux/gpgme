@@ -21,7 +21,7 @@ Patch1:		%{name}-kill-tests.patch
 URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.10
-BuildRequires:	libassuan-devel >= 1:2.0.0
+BuildRequires:	libassuan1-devel >= 1.0.5
 BuildRequires:	libgpg-error-devel >= 1.4
 BuildRequires:	libtool
 %{?with_pth:BuildRequires:	pth-devel >= 1.2.0}
