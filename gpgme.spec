@@ -28,8 +28,8 @@ BuildRequires:	libtool
 BuildRequires:	texinfo
 BuildConflicts:	gnupg < 1.3.0
 %{!?with_gpgsm:Requires:	gnupg >= 1.3.0}
-%{?with_gpgsm:Requires:	gnupg2 >= 2.0.4}
 %{?with_gpgsm:Requires:	gnupg-smime >= 1.9.8}
+%{?with_gpgsm:Requires:	gnupg2 >= 2.0.4}
 Requires:	libgpg-error >= 1.4
 Obsoletes:	cryptplug
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -83,7 +83,7 @@ Statyczna wersja biblioteki GPGME.
 	%{?with_gpgsm:--with-gpgsm=%{_bindir}/gpgsm} \
 	%{!?with_gpgsm:--without-gpgsm} \
 	%{!?with_pth:--without-pth} \
-	--with-gpg=/usr/bin/gpg%{?with_gpgsm:2}
+	--with-gpg=%{_bindir}/gpg%{?with_gpgsm:2}
 
 %{__make}
 
