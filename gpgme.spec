@@ -80,10 +80,10 @@ Statyczna wersja biblioteki GPGME.
 %{__automake}
 %configure \
 	%{?with_static_libs:--enable-static} \
-	%{?with_gpgsm:--with-gpgsm=%{_bindir}/gpgsm} \
+	%{?with_gpgsm:--with-gpgsm=/usr/bin/gpgsm} \
 	%{!?with_gpgsm:--without-gpgsm} \
 	%{!?with_pth:--without-pth} \
-	--with-gpg=%{_bindir}/gpg%{?with_gpgsm:2}
+	--with-gpg=/usr/bin/gpg%{?with_gpgsm:2}
 
 %{__make}
 
