@@ -21,7 +21,7 @@ Patch1:		%{name}-kill-tests.patch
 URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.10
-BuildRequires:	libassuan-devel >= 1.1.0
+BuildRequires:	libassuan-devel >= 1:1.1.0
 BuildRequires:	libgpg-error-devel >= 1.4
 BuildRequires:	libtool >= 2:2.2.6
 %{?with_pth:BuildRequires:	pth-devel >= 1.2.0}
@@ -30,6 +30,7 @@ BuildConflicts:	gnupg < 1.3.0
 %{!?with_gpgsm:Requires:	gnupg >= 1.4.0}
 %{?with_gpgsm:Requires:	gnupg-smime >= 1.9.8}
 %{?with_gpgsm:Requires:	gnupg2 >= 2.0.4}
+Requires:	libassuan >= 1:1.1.0
 Requires:	libgpg-error >= 1.4
 Obsoletes:	cryptplug
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
