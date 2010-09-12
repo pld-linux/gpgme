@@ -10,7 +10,7 @@ Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
 Version:	1.3.0
-Release:	1
+Release:	2
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
@@ -46,6 +46,7 @@ Summary:	Header files for GPGME library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki GPGME
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	libassuan-devel >= 1:1.1.0
 Requires:	libgpg-error-devel >= 1.4
 
 %description devel
