@@ -1,3 +1,7 @@
+# TODO: package lisp files:
+#    /usr/share/common-lisp/source/gpgme/gpgme-package.lisp
+#    /usr/share/common-lisp/source/gpgme/gpgme.asd
+#    /usr/share/common-lisp/source/gpgme/gpgme.lisp
 #
 # Conditional build:
 %bcond_without	gpgsm		# with gnupg S/MIME support
@@ -9,21 +13,21 @@
 Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
-Version:	1.3.0
-Release:	3
+Version:	1.3.1
+Release:	1
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.bz2
-# Source0-md5:	4784e3c6086c9c25e9a1b4d9f7c5aa96
+# Source0-md5:	90afa8436ce2b2683c001c824bd22601
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-kill-tests.patch
 Patch2:		%{name}-1.2.0-largefile.patch
 URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.59
-BuildRequires:	automake >= 1:1.10
-BuildRequires:	libassuan-devel >= 1:1.1.0
-BuildRequires:	libgpg-error-devel >= 1.4
+BuildRequires:	automake >= 1:1.11
+BuildRequires:	libassuan-devel >= 1:2.0.2
+BuildRequires:	libgpg-error-devel >= 1.8
 BuildRequires:	libtool >= 2:2.2.6
 %{?with_pth:BuildRequires:	pth-devel >= 1.2.0}
 BuildRequires:	texinfo
@@ -31,8 +35,8 @@ BuildConflicts:	gnupg < 1.3.0
 %{!?with_gpgsm:Requires:	gnupg >= 1.4.0}
 %{?with_gpgsm:Requires:	gnupg-smime >= 1.9.8}
 %{?with_gpgsm:Requires:	gnupg2 >= 2.0.4}
-Requires:	libassuan >= 1:1.1.0
-Requires:	libgpg-error >= 1.4
+Requires:	libassuan >= 1:2.0.2
+Requires:	libgpg-error >= 1.8
 Obsoletes:	cryptplug
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -47,8 +51,8 @@ Summary:	Header files for GPGME library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki GPGME
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	libassuan-devel >= 1:1.1.0
-Requires:	libgpg-error-devel >= 1.4
+Requires:	libassuan-devel >= 1:2.0.2
+Requires:	libgpg-error-devel >= 1.8
 
 %description devel
 Header files for GPGME library, needed for compiling programs using

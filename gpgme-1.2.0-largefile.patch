@@ -1,7 +1,6 @@
-diff -up gpgme-1.2.0/src/gpgme-config.in.largefile gpgme-1.2.0/src/gpgme-config.in
---- gpgme-1.2.0/src/gpgme-config.in.largefile	2010-08-11 20:11:49.000000000 +0200
-+++ gpgme-1.2.0/src/gpgme-config.in	2010-08-11 20:23:45.000000000 +0200
-@@ -42,6 +42,10 @@ cflags_pthread=""
+--- gpgme-1.3.1/src/gpgme-config.in.orig	2011-04-07 14:24:03.000000000 +0200
++++ gpgme-1.3.1/src/gpgme-config.in	2011-06-18 08:59:14.834695342 +0200
+@@ -45,6 +45,10 @@
  cflags_glib="@GLIB_CFLAGS@"
  with_glib=
  
@@ -12,13 +11,13 @@ diff -up gpgme-1.2.0/src/gpgme-config.in.largefile gpgme-1.2.0/src/gpgme-config.
  output=""
  
  usage()
-@@ -101,6 +105,9 @@ while test $# -gt 0; do
- 	    exit 0
- 	    ;;
-         --cflags)
-+	    if test "x$cflags_lfs" != "x"; then
+@@ -136,6 +140,9 @@
+                   result="$result $i"
+               fi
+             done
++	    if test "x$cflags_lfs" != "x" then
 +		output="$output $cflags_lfs"
 +	    fi
- 	    if test "x$includedir" != "x/usr/include" -a "x$includedir" != "x/include"; then
- 		output="$output -I$includedir"
- 	    fi
+             output="$output $result"
+             ;;
+ 	--libs)
