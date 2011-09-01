@@ -15,7 +15,7 @@
                    result="$result $i"
                fi
              done
-+	    if test "x$cflags_lfs" != "x" then
++	    if test "x$cflags_lfs" != "x"; then
 +		output="$output $cflags_lfs"
 +	    fi
              output="$output $result"
