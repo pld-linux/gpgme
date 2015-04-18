@@ -11,20 +11,19 @@
 Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
-Version:	1.5.3
+Version:	1.5.4
 Release:	1
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.bz2
-# Source0-md5:	082ab2632e7f051f5c09bafd5c4bfacf
+# Source0-md5:	feafa03ea064e1d1dc11bc2b88404623
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-kill-tests.patch
 Patch2:		%{name}-1.2.0-largefile.patch
-Patch3:		%{name}-texinfo.patch
 URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.59
-BuildRequires:	automake >= 1:1.11
+BuildRequires:	automake >= 1:1.14
 BuildRequires:	libassuan-devel >= 1:2.0.2
 BuildRequires:	libgpg-error-devel >= 1.11
 BuildRequires:	libtool >= 2:2.2.6
@@ -77,7 +76,6 @@ Statyczna wersja biblioteki GPGME.
 %patch0 -p1
 %{!?with_tests:%patch1 -p1}
 %patch2 -p1
-%patch3 -p1
 
 %build
 %{__libtoolize}
