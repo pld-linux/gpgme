@@ -4,7 +4,6 @@
 #    /usr/share/common-lisp/source/gpgme/gpgme.lisp
 #
 # Conditional build:
-%bcond_without	gpgsm		# with gnupg S/MIME support
 %bcond_without	static_libs	# do not build static libraries
 %bcond_with	tests		# perform tests
 #
@@ -29,9 +28,9 @@ BuildRequires:	libgpg-error-devel >= 1.11
 BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	texinfo
 BuildConflicts:	gnupg < 1.3.0
-%{!?with_gpgsm:Requires:	gnupg >= 1.4.0}
-%{?with_gpgsm:Requires:	gnupg-smime >= 1.9.8}
-%{?with_gpgsm:Requires:	gnupg2 >= 2.0.4}
+Suggests:	gnupg >= 1.4.0
+Suggests:	gnupg-smime >= 1.9.8
+Suggests:	gnupg2 >= 2.0.4
 Requires:	libassuan >= 1:2.0.2
 Requires:	libgpg-error >= 1.11
 Obsoletes:	cryptplug
@@ -84,10 +83,7 @@ Statyczna wersja biblioteki GPGME.
 %{__autoheader}
 %{__automake}
 %configure \
-	%{?with_static_libs:--enable-static} \
-	%{?with_gpgsm:--with-gpgsm=/usr/bin/gpgsm} \
-	%{!?with_gpgsm:--without-gpgsm} \
-	--with-gpg=/usr/bin/gpg%{?with_gpgsm:2}
+	%{?with_static_libs:--enable-static}
 
 %{__make}
 
