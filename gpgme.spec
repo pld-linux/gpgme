@@ -1,8 +1,7 @@
-# TODO: finish common-lisp package (is it a proper location? what package name?)
 #
 # Conditional build:
 %bcond_without	static_libs	# do not build static libraries
-%bcond_with	commonlisp	# Common Lisp interface
+%bcond_without	commonlisp	# Common Lisp interface
 %bcond_without	cxx		# C++ interface (GpgMEpp library)
 %bcond_without	qt5		# Qt 5 interface (QGpgME library), requires cxx
 %bcond_without	python		# Python interfaces (PyME, both python2+python3)
@@ -178,6 +177,19 @@ Static QGpgME library.
 %description qt5-static -l pl.UTF-8
 Statyczna biblioteka QGpgME.
 
+%package -n common-lisp-gpgme
+Summary:	Common Lisp binding for GPGME library
+Summary(pl.UTF-8):	Wiązanie Common Lispa do biblioteki GPGME
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+Requires:	common-lisp-controller
+
+%description -n common-lisp-gpgme
+Common Lisp binding for GPGME library.
+
+%description -n common-lisp-gpgme -l pl.UTF-8
+Wiązanie Common Lispa do biblioteki GPGME.
+
 %package -n python-pyme
 Summary:	PyME - Python 2 interface for GPGME library
 Summary(pl.UTF-8):	PyME - interfejs Pythona 2 do biblioteki GPGME
@@ -327,6 +339,13 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 %endif
 
+%if %{with commonlisp}
+%files -n common-lisp-gpgme
+%defattr(644,root,root,755)
+%doc lang/cl/README
+%{_datadir}/common-lisp/source/gpgme
+%endif
+
 %if %{with python2}
 %files -n python-pyme
 %defattr(644,root,root,755)
@@ -348,11 +367,4 @@ rm -rf $RPM_BUILD_ROOT
 %{py3_sitedir}/pyme/__pycache__
 %{py3_sitedir}/pyme/constants
 %{py3_sitedir}/pyme3-%{version}-py*.egg-info
-%endif
-
-%if %{with commonlisp}
-%files -n common-lisp???-gpgme
-%defattr(644,root,root,755)
-%doc lang/cl/README
-%{_datadir}/common-lisp/source/gpgme
 %endif
