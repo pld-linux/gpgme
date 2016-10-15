@@ -20,7 +20,7 @@ Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
 Version:	1.7.0
-Release:	1
+Release:	2
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
@@ -97,7 +97,7 @@ Statyczna wersja biblioteki GPGME.
 Summary:	GpgMEpp - C++ interface for GPGME library
 Summary(pl.UTF-8):	GpgMEpp - interfejs C++ do biblioteki GPGME
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description c++
 GpgMEpp is a C++ wrapper (or C++ bindings) for the GnuPG project's
@@ -111,7 +111,7 @@ Made Easy) z projektu GnuPG. Jest oparty na bibliotece KF5gpgme.pp.
 Summary:	Header files for GpgMEpp library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki GpgMEpp
 Group:		Development/Libraries
-Requires:	%{name}-c++ = %{version}-%{release}
+Requires:	%{name}-c++ = %{epoch}:%{version}-%{release}
 Requires:	libstdc++-devel >= 6:4.7
 
 %description c++-devel
@@ -124,7 +124,7 @@ Pliki nagłówkowe biblioteki GpgMEpp.
 Summary:	Static GpgMEpp library
 Summary(pl.UTF-8):	Statyczna biblioteka GpgMEpp
 Group:		Development/Libraries
-Requires:	%{name}-c++-devel = %{version}-%{release}
+Requires:	%{name}-c++-devel = %{epoch}:%{version}-%{release}
 
 %description c++-static
 Static GpgMEpp library.
@@ -137,7 +137,7 @@ Summary:	QGpgME - Qt 5 interface for GPGME library
 Summary(pl.UTF-8):	QGpgME - interfejs Qt 5 do biblioteki GPGME
 License:	GPL v2+ with Qt linking exception
 Group:		Libraries
-Requires:	%{name}-c++ = %{version}-%{release}
+Requires:	%{name}-c++ = %{epoch}:%{version}-%{release}
 Requires:	Qt5Core >= 5.0.0
 
 %description qt5
@@ -154,8 +154,8 @@ Summary:	Header files for QGpgME library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki QGpgME
 License:	GPL v2+ with Qt linking exception
 Group:		Development/Libraries
-Requires:	%{name}-c++-devel = %{version}-%{release}
-Requires:	%{name}-qt5 = %{version}-%{release}
+Requires:	%{name}-c++-devel = %{epoch}:%{version}-%{release}
+Requires:	%{name}-qt5 = %{epoch}:%{version}-%{release}
 Requires:	Qt5Core-devel >= 5.0.0
 
 %description qt5-devel
@@ -169,7 +169,7 @@ Summary:	Static QGpgME library
 Summary(pl.UTF-8):	Statyczna biblioteka QGpgME
 License:	GPL v2+ with Qt linking exception
 Group:		Development/Libraries
-Requires:	%{name}-qt5-devel = %{version}-%{release}
+Requires:	%{name}-qt5-devel = %{epoch}:%{version}-%{release}
 
 %description qt5-static
 Static QGpgME library.
@@ -181,7 +181,7 @@ Statyczna biblioteka QGpgME.
 Summary:	Common Lisp binding for GPGME library
 Summary(pl.UTF-8):	Wiązanie Common Lispa do biblioteki GPGME
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	common-lisp-controller
 
 %description -n common-lisp-gpgme
@@ -194,7 +194,7 @@ Wiązanie Common Lispa do biblioteki GPGME.
 Summary:	PyME - Python 2 interface for GPGME library
 Summary(pl.UTF-8):	PyME - interfejs Pythona 2 do biblioteki GPGME
 Group:		Libraries/Python
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	python-libs >= 1:2.7
 
 %description -n python-pyme
@@ -207,7 +207,7 @@ PyME to interfejs Pythona do biblioteki GPGME.
 Summary:	PyME - Python 3 interface for GPGME library
 Summary(pl.UTF-8):	PyME - interfejs Pythona 3 do biblioteki GPGME
 Group:		Libraries/Python
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	python3-libs >= 1:3.4
 
 %description -n python3-pyme
