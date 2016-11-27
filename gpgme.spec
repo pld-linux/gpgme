@@ -19,13 +19,13 @@
 Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
-Version:	1.7.0
-Release:	2
+Version:	1.8.0
+Release:	1
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.bz2
-# Source0-md5:	c3f24c50bc5bdb7b898da0e278425ad2
+# Source0-md5:	722a4153904b9b5dc15485a22d29263b
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-kill-tests.patch
 Patch2:		%{name}-largefile.patch
@@ -34,7 +34,7 @@ URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.14
 BuildRequires:	libassuan-devel >= 1:2.0.2
-BuildRequires:	libgpg-error-devel >= 1.11
+BuildRequires:	libgpg-error-devel >= 1.17
 %{?with_cxx:BuildRequires:	libstdc++-devel >= 6:4.7}
 BuildRequires:	libtool >= 2:2.2.6
 %{?with_python2:BuildRequires:	python-devel >= 1:2.7}
@@ -55,7 +55,7 @@ Suggests:	gnupg >= 1.4.0
 Suggests:	gnupg-smime >= 1.9.8
 Suggests:	gnupg2 >= 2.0.4
 Requires:	libassuan >= 1:2.0.2
-Requires:	libgpg-error >= 1.11
+Requires:	libgpg-error >= 1.17
 Obsoletes:	cryptplug
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -71,7 +71,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki GPGME
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	libassuan-devel >= 1:2.0.2
-Requires:	libgpg-error-devel >= 1.11
+Requires:	libgpg-error-devel >= 1.17
 
 %description devel
 Header files for GPGME library, needed for compiling programs using
@@ -190,30 +190,32 @@ Common Lisp binding for GPGME library.
 %description -n common-lisp-gpgme -l pl.UTF-8
 Wiązanie Common Lispa do biblioteki GPGME.
 
-%package -n python-pyme
+%package -n python-gpg
 Summary:	PyME - Python 2 interface for GPGME library
 Summary(pl.UTF-8):	PyME - interfejs Pythona 2 do biblioteki GPGME
 Group:		Libraries/Python
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	python-libs >= 1:2.7
+Obsoletes:	python-pyme < 1.8.0
 
-%description -n python-pyme
+%description -n python-gpg
 PyME is a Python interface for GPGME library.
 
-%description -n python-pyme -l pl.UTF-8
+%description -n python-gpg -l pl.UTF-8
 PyME to interfejs Pythona do biblioteki GPGME.
 
-%package -n python3-pyme
+%package -n python3-gpg
 Summary:	PyME - Python 3 interface for GPGME library
 Summary(pl.UTF-8):	PyME - interfejs Pythona 3 do biblioteki GPGME
 Group:		Libraries/Python
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	python3-libs >= 1:3.4
+Obsoletes:	python3-pyme < 1.8.0
 
-%description -n python3-pyme
+%description -n python3-gpg
 PyME is a Python interface for GPGME library.
 
-%description -n python3-pyme -l pl.UTF-8
+%description -n python3-gpg -l pl.UTF-8
 PyME to interfejs Pythona do biblioteki GPGME.
 
 %prep
@@ -272,16 +274,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/gpgme-tool
 %attr(755,root,root) %{_libdir}/libgpgme.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgpgme.so.11
-%attr(755,root,root) %{_libdir}/libgpgme-pthread.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgpgme-pthread.so.11
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/gpgme-config
 %attr(755,root,root) %{_libdir}/libgpgme.so
-%attr(755,root,root) %{_libdir}/libgpgme-pthread.so
 %{_libdir}/libgpgme.la
-%{_libdir}/libgpgme-pthread.la
 %{_includedir}/gpgme.h
 %{_aclocaldir}/gpgme.m4
 %{_infodir}/gpgme.info*
@@ -290,7 +288,6 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libgpgme.a
-%{_libdir}/libgpgme-pthread.a
 %endif
 
 %if %{with cxx}
@@ -305,9 +302,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgpgmepp.so
 %{_libdir}/libgpgmepp.la
 %{_includedir}/gpgme++
-%{_includedir}/gpgmepp_version.h
-%dir %{_libdir}/cmake/Gpgmepp
-%{_libdir}/cmake/Gpgmepp/GpgmeppConfig*.cmake
+%{_libdir}/cmake/Gpgmepp
 
 %if %{with static_libs}
 %files c++-static
@@ -320,7 +315,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc lang/qt/README
 %attr(755,root,root) %{_libdir}/libqgpgme.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libqgpgme.so.6
+%attr(755,root,root) %ghost %{_libdir}/libqgpgme.so.7
 
 %files qt5-devel
 %defattr(644,root,root,755)
@@ -328,8 +323,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libqgpgme.la
 %{_includedir}/QGpgME
 %{_includedir}/qgpgme
-%{_includedir}/qgpgme_version.h
-%{_libdir}/cmake/Gpgmepp/QGpgmeConfig*.cmake
+%{_libdir}/cmake/QGpgme
 
 %if %{with static_libs}
 %files qt5-static
@@ -347,24 +341,24 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %if %{with python2}
-%files -n python-pyme
+%files -n python-gpg
 %defattr(644,root,root,755)
 %doc lang/python/README
-%dir %{py_sitedir}/pyme
-%attr(755,root,root) %{py_sitedir}/pyme/_gpgme.so
-%{py_sitedir}/pyme/*.py[co]
-%{py_sitedir}/pyme/constants
-%{py_sitedir}/pyme3-%{version}-py*.egg-info
+%dir %{py_sitedir}/gpg
+%attr(755,root,root) %{py_sitedir}/gpg/_gpgme.so
+%{py_sitedir}/gpg/*.py[co]
+%{py_sitedir}/gpg/constants
+%{py_sitedir}/gpg-%{version}-py*.egg-info
 %endif
 
 %if %{with python3}
-%files -n python3-pyme
+%files -n python3-gpg
 %defattr(644,root,root,755)
 %doc lang/python/README
-%dir %{py3_sitedir}/pyme
-%attr(755,root,root) %{py3_sitedir}/pyme/_gpgme.cpython-*.so
-%{py3_sitedir}/pyme/*.py
-%{py3_sitedir}/pyme/__pycache__
-%{py3_sitedir}/pyme/constants
-%{py3_sitedir}/pyme3-%{version}-py*.egg-info
+%dir %{py3_sitedir}/gpg
+%attr(755,root,root) %{py3_sitedir}/gpg/_gpgme.cpython-*.so
+%{py3_sitedir}/gpg/*.py
+%{py3_sitedir}/gpg/__pycache__
+%{py3_sitedir}/gpg/constants
+%{py3_sitedir}/gpg-%{version}-py*.egg-info
 %endif

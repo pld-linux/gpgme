@@ -1,6 +1,6 @@
---- gpgme-1.7.0/lang/python/Makefile.am.orig	2016-09-21 09:18:00.000000000 +0200
-+++ gpgme-1.7.0/lang/python/Makefile.am	2016-10-08 22:07:19.258156918 +0200
-@@ -92,14 +92,15 @@
+--- gpgme-1.8.0/lang/python/Makefile.am.orig	2016-11-27 12:56:09.390089844 +0100
++++ gpgme-1.8.0/lang/python/Makefile.am	2016-11-27 17:00:38.506589016 +0100
+@@ -101,14 +101,15 @@
  	rm -f install_files.txt
  	for PYTHON in $(PYTHONS); do \
  	  $$PYTHON setup.py install \
@@ -13,8 +13,8 @@
  	  cat files.txt >> install_files.txt ; \
  	  rm files.txt ; \
  	done
- 	$(MKDIR_P) $(DESTDIR)$(pythondir)/pyme
--	mv install_files.txt $(DESTDIR)$(pythondir)/pyme
+ 	$(MKDIR_P) $(DESTDIR)$(pythondir)/gpg
+-	mv install_files.txt $(DESTDIR)$(pythondir)/gpg
  
  uninstall-local:
- 	xargs <$(DESTDIR)$(pythondir)/pyme/install_files.txt -- rm -rf --
+ 	xargs <$(DESTDIR)$(pythondir)/gpg/install_files.txt -- rm -rf --
