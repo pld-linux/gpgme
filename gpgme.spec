@@ -19,17 +19,18 @@
 Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
-Version:	1.8.0
-Release:	2
+Version:	1.9.0
+Release:	1
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.bz2
-# Source0-md5:	722a4153904b9b5dc15485a22d29263b
+# Source0-md5:	1e00bb8ef04d1d05d5a0f19e143854c3
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-kill-tests.patch
 Patch2:		%{name}-largefile.patch
 Patch3:		%{name}-python.patch
+Patch4:		%{name}-format.patch
 URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.14
@@ -224,6 +225,7 @@ PyME to interfejs Pythona do biblioteki GPGME.
 %{!?with_tests:%patch1 -p1}
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 %{__libtoolize}

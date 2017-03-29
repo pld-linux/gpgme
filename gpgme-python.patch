@@ -1,8 +1,8 @@
---- gpgme-1.8.0/lang/python/Makefile.am.orig	2016-11-27 12:56:09.390089844 +0100
-+++ gpgme-1.8.0/lang/python/Makefile.am	2016-11-27 17:00:38.506589016 +0100
-@@ -101,14 +101,15 @@
- 	rm -f install_files.txt
- 	for PYTHON in $(PYTHONS); do \
+--- gpgme-1.9.0/lang/python/Makefile.am.orig	2017-03-29 20:00:06.723317571 +0200
++++ gpgme-1.9.0/lang/python/Makefile.am	2017-03-29 20:50:36.333282979 +0200
+@@ -105,7 +105,9 @@
+ 	  PYTHON="$$1" ; shift ; \
+ 	  cd python$${VERSION}-gpg ; \
  	  $$PYTHON setup.py install \
 -	  --prefix $(DESTDIR)$(prefix) \
 +	  --prefix $(prefix) \
@@ -10,8 +10,9 @@
 +	  --optimize=2 \
  	  --record files.txt \
  	  --verbose ; \
- 	  cat files.txt >> install_files.txt ; \
- 	  rm files.txt ; \
+ 	  cat files.txt >> ../install_files.txt ; \
+@@ -113,7 +115,6 @@
+ 	  cd .. ; \
  	done
  	$(MKDIR_P) $(DESTDIR)$(pythondir)/gpg
 -	mv install_files.txt $(DESTDIR)$(pythondir)/gpg
