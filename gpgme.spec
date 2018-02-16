@@ -19,23 +19,22 @@
 Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
-Version:	1.9.0
+Version:	1.10.0
 Release:	1
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.bz2
-# Source0-md5:	1e00bb8ef04d1d05d5a0f19e143854c3
+# Source0-md5:	78b1533c593478982ee2fc548260c563
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-kill-tests.patch
 Patch2:		%{name}-largefile.patch
 Patch3:		%{name}-python.patch
-Patch4:		%{name}-format.patch
 URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.14
-BuildRequires:	libassuan-devel >= 1:2.0.2
-BuildRequires:	libgpg-error-devel >= 1.17
+BuildRequires:	libassuan-devel >= 1:2.4.2
+BuildRequires:	libgpg-error-devel >= 1.24
 %{?with_cxx:BuildRequires:	libstdc++-devel >= 6:4.7}
 BuildRequires:	libtool >= 2:2.2.6
 %{?with_python2:BuildRequires:	python-devel >= 1:2.7}
@@ -55,8 +54,8 @@ BuildConflicts:	gnupg < 1.3.0
 Suggests:	gnupg >= 1.4.0
 Suggests:	gnupg-smime >= 1.9.8
 Suggests:	gnupg2 >= 2.0.4
-Requires:	libassuan >= 1:2.0.2
-Requires:	libgpg-error >= 1.17
+Requires:	libassuan >= 1:2.4.2
+Requires:	libgpg-error >= 1.24
 Obsoletes:	cryptplug
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -71,8 +70,8 @@ Summary:	Header files for GPGME library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki GPGME
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	libassuan-devel >= 1:2.0.2
-Requires:	libgpg-error-devel >= 1.17
+Requires:	libassuan-devel >= 1:2.4.2
+Requires:	libgpg-error-devel >= 1.24
 
 %description devel
 Header files for GPGME library, needed for compiling programs using
@@ -225,7 +224,6 @@ PyME to interfejs Pythona do biblioteki GPGME.
 %{!?with_tests:%patch1 -p1}
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
 
 %build
 %{__libtoolize}
