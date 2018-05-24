@@ -33,6 +33,7 @@ Patch3:		%{name}-python.patch
 URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.14
+%{?with_tests:BuildRequires:	gnupg-agent}
 BuildRequires:	libassuan-devel >= 1:2.4.2
 BuildRequires:	libgpg-error-devel >= 1.29
 %{?with_cxx:BuildRequires:	libstdc++-devel >= 6:4.7}
@@ -72,7 +73,6 @@ Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	libassuan-devel >= 1:2.4.2
 Requires:	libgpg-error-devel >= 1.29
-Conflicts:	kde4-kdepimlibs-devel
 
 %description devel
 Header files for GPGME library, needed for compiling programs using
@@ -114,6 +114,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki GpgMEpp
 Group:		Development/Libraries
 Requires:	%{name}-c++ = %{epoch}:%{version}-%{release}
 Requires:	libstdc++-devel >= 6:4.7
+Conflicts:	kde4-kdepimlibs-devel
 
 %description c++-devel
 Header files for GpgMEpp library.
@@ -158,6 +159,7 @@ Group:		Development/Libraries
 Requires:	%{name}-c++-devel = %{epoch}:%{version}-%{release}
 Requires:	%{name}-qt5 = %{epoch}:%{version}-%{release}
 Requires:	Qt5Core-devel >= 5.0.0
+Conflicts:	kde4-kdepimlibs-devel
 
 %description qt5-devel
 Header files for QGpgME library.
