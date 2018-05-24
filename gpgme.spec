@@ -20,7 +20,7 @@ Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
 Version:	1.11.1
-Release:	1
+Release:	2
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
@@ -72,6 +72,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	libassuan-devel >= 1:2.4.2
 Requires:	libgpg-error-devel >= 1.29
+Conflicts:	kde4-kdepimlibs-devel
 
 %description devel
 Header files for GPGME library, needed for compiling programs using
