@@ -34,6 +34,7 @@ URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.14
 %{?with_tests:BuildRequires:	gnupg-agent}
+%{?with_tests:BuildRequires:	gnupg-smime}
 BuildRequires:	libassuan-devel >= 1:2.4.2
 BuildRequires:	libgpg-error-devel >= 1.29
 %{?with_cxx:BuildRequires:	libstdc++-devel >= 6:4.7}
