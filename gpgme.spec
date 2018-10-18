@@ -7,7 +7,7 @@
 %bcond_without	python		# Python interfaces (PyME, both python2+python3)
 %bcond_without	python2		# Python 2 interface (PyME)
 %bcond_without	python3		# Python 3 interface (PyME)
-%bcond_with	tests		# perform tests
+%bcond_without	tests		# perform tests
 #
 %if %{without python}
 %undefine	with_python2
@@ -225,7 +225,7 @@ PyME to interfejs Pythona do biblioteki GPGME.
 %prep
 %setup -q
 %patch0 -p1
-%{!?with_tests:%patch1 -p1}
+%patch1 -p1
 %patch2 -p1
 %patch3 -p1
 
@@ -239,6 +239,12 @@ PyME to interfejs Pythona do biblioteki GPGME.
 # "python" means both pythons (if available), "python2" just python2, "python3" just python3
 # (cannot specify "python2 python3" due to script limitations)
 %configure \
+%if %{without tests}
+	--disable-g13-test \
+	--disable-gpg-test \
+	--disable-gpgconf-test \
+	--disable-gpgsm-test \
+%endif
 	--enable-languages="%{?with_commonlisp:cl} %{?with_cxx:cpp} %{?with_python2:python%{!?with_python3:2}} %{?with_python3:%{!?with_python2:python3}} %{?with_qt5:qt}" \
 	%{?with_static_libs:--enable-static}
 
