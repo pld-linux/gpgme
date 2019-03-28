@@ -42,31 +42,31 @@
  
  # Figure out platform dependent typedefs for gpgme.h
  if test "$have_w32_system" = yes; then
---- gpgme-1.7.0/lang/cpp/src/Makefile.am.orig	2016-08-24 15:59:45.000000000 +0200
-+++ gpgme-1.7.0/lang/cpp/src/Makefile.am	2016-10-08 08:47:06.225371811 +0200
-@@ -62,7 +62,7 @@
+--- gpgme-1.13.0/lang/cpp/src/Makefile.am.orig	2019-03-28 17:43:11.439122747 +0100
++++ gpgme-1.13.0/lang/cpp/src/Makefile.am	2019-03-28 18:21:29.420006850 +0100
+@@ -65,7 +65,7 @@
  libgpgmepp_la_SOURCES = $(main_sources) $(gpgmepp_headers) context_vanilla.cpp \
                          $(interface_headers) $(private_gpgmepp_headers)
  
 -AM_CPPFLAGS = -I$(top_builddir)/src @GPG_ERROR_CFLAGS@ @LIBASSUAN_CFLAGS@ \
 +AM_CPPFLAGS = -I$(top_builddir)/src @GPG_ERROR_CFLAGS@ @LIBASSUAN_CFLAGS@ @FILE_OFFSET_BITS_CPPFLAGS@ \
-               -DBUILDING_GPGMEPP
+               -DBUILDING_GPGMEPP -Wsuggest-override \
+               -Wzero-as-null-pointer-constant
  
- libgpgmepp_la_LIBADD = ../../../src/libgpgme.la @LIBASSUAN_LIBS@
---- gpgme-1.7.0/lang/python/setup.py.in.orig	2016-09-20 10:48:12.000000000 +0200
-+++ gpgme-1.7.0/lang/python/setup.py.in	2016-10-08 09:24:35.815346124 +0200
-@@ -98,9 +98,8 @@
+--- gpgme-1.13.0/lang/python/setup.py.in.orig	2018-12-03 10:37:25.000000000 +0100
++++ gpgme-1.13.0/lang/python/setup.py.in	2019-03-28 18:23:59.565860107 +0100
+@@ -87,9 +87,8 @@
  define_macros = []
  libs = getconfig('libs')
  
 -# Define extra_macros for both the SWIG and C code
 +# append extra_macros to define_macros
  for k, v in extra_macros.items():
--    extra_swig_opts.append("-D{0}={1}".format(k, v))
+-    extra_swig_opts.append('-D{0}={1}'.format(k, v))
      define_macros.append((k, str(v)))
  
  for item in getconfig('cflags'):
-@@ -113,6 +112,10 @@
+@@ -102,6 +101,10 @@
          else:
              define_macros.append((defitem[0], None))
  
@@ -75,19 +75,19 @@
 +    extra_swig_opts.append("-D{0}={1}".format(k, v))
 +
  # Adjust include and library locations in case of win32
- uname_s = os.popen("uname -s").read()
- if uname_s.startswith("MINGW32"):
---- gpgme-1.7.0/lang/qt/src/Makefile.am.orig	2016-09-19 08:35:20.000000000 +0200
-+++ gpgme-1.7.0/lang/qt/src/Makefile.am	2016-10-08 09:28:39.158676678 +0200
-@@ -206,7 +206,7 @@
+ uname_s = os.popen('uname -s').read()
+ if uname_s.startswith('MINGW32'):
+--- gpgme-1.13.0/lang/qt/src/Makefile.am.orig	2019-03-28 17:43:11.439122747 +0100
++++ gpgme-1.13.0/lang/qt/src/Makefile.am	2019-03-28 18:21:48.163238642 +0100
+@@ -218,7 +218,7 @@
  libqgpgme_la_SOURCES = $(qgpgme_sources) $(qgpgme_headers) $(private_qgpgme_headers)
  
  AM_CPPFLAGS = -I$(top_srcdir)/lang/cpp/src -I$(top_builddir)/src \
 -              @GPGME_QT_CFLAGS@ @GPG_ERROR_CFLAGS@ @LIBASSUAN_CFLAGS@ \
 +              @GPGME_QT_CFLAGS@ @GPG_ERROR_CFLAGS@ @LIBASSUAN_CFLAGS@ @FILE_OFFSET_BITS_CPPFLAGS@ \
-               -DBUILDING_QGPGME
+               -DBUILDING_QGPGME -Wsuggest-override \
+               -Wzero-as-null-pointer-constant
  
- libqgpgme_la_LIBADD = ../../cpp/src/libgpgmepp.la ../../../src/libgpgme.la \
 --- gpgme-1.7.0/lang/qt/tests/Makefile.am.orig	2016-09-20 19:09:38.000000000 +0200
 +++ gpgme-1.7.0/lang/qt/tests/Makefile.am	2016-10-08 09:37:15.642004112 +0200
 @@ -38,7 +38,7 @@

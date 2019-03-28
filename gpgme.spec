@@ -19,13 +19,13 @@
 Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
-Version:	1.12.0
+Version:	1.13.0
 Release:	1
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.bz2
-# Source0-md5:	902fca3a94907efe4e929b2ade545a7c
+# Source0-md5:	e511a0d95c507ab87e713140c82fc7d0
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-kill-tests.patch
 Patch2:		%{name}-largefile.patch
@@ -256,6 +256,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# Win32 specific
+%{__rm} $RPM_BUILD_ROOT%{_pkgconfigdir}/gpgme-glib.pc
+
 %if %{with python2}
 %py_postclean
 %endif
@@ -292,6 +295,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgpgme.so
 %{_libdir}/libgpgme.la
 %{_includedir}/gpgme.h
+%{_pkgconfigdir}/gpgme.pc
 %{_aclocaldir}/gpgme.m4
 %{_infodir}/gpgme.info*
 
@@ -359,7 +363,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_sitedir}/gpg/_gpgme.so
 %{py_sitedir}/gpg/*.py[co]
 %{py_sitedir}/gpg/constants
-%{py_sitedir}/gpg-%{version}-py*.egg-info
+%{py_sitedir}/gpg-%{version}_unknown-py*.egg-info
 %endif
 
 %if %{with python3}
@@ -371,5 +375,5 @@ rm -rf $RPM_BUILD_ROOT
 %{py3_sitedir}/gpg/*.py
 %{py3_sitedir}/gpg/__pycache__
 %{py3_sitedir}/gpg/constants
-%{py3_sitedir}/gpg-%{version}-py*.egg-info
+%{py3_sitedir}/gpg-%{version}_unknown-py*.egg-info
 %endif
