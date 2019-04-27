@@ -20,7 +20,7 @@ Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
 Version:	1.13.0
-Release:	1
+Release:	2
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
@@ -239,6 +239,7 @@ PyME to interfejs Pythona do biblioteki GPGME.
 # "python" means both pythons (if available), "python2" just python2, "python3" just python3
 # (cannot specify "python2 python3" due to script limitations)
 %configure \
+	PACKAGE_VERSION=%{version} \
 %if %{without tests}
 	--disable-g13-test \
 	--disable-gpg-test \
