@@ -4,14 +4,14 @@
  	doc \
  	src
  
--SUBDIRS = . tests
+-SUBDIRS = . tests examples doc src
 +if RUN_GPG_TESTS
 +tests = tests
 +else
 +tests =
 +endif
 +
-+SUBDIRS = . ${tests}
++SUBDIRS = . ${tests} examples doc src
  
  .PHONY: prepare
  prepare: copystamp
