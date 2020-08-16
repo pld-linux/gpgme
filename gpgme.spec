@@ -47,7 +47,7 @@ BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRequires:	texinfo
 %if %{with qt5}
 BuildRequires:	Qt5Core-devel >= 5.0.0
-%{?with_tests:BuildRequires:	Qt5Test-devel >= 5.0.0}
+%{?with_tests:BuildRequires:	Qt5Test-devel >= 5.8.0}
 BuildRequires:	doxygen
 BuildRequires:	graphviz
 BuildRequires:	qt5-build >= 5.0.0
