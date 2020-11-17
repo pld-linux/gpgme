@@ -19,13 +19,13 @@
 Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
-Version:	1.14.0
+Version:	1.15.0
 Release:	1
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.bz2
-# Source0-md5:	e1be12b1aeabdf24a0b663c3c42747ac
+# Source0-md5:	32298e5ccd458f96b25ce7ae8e30780c
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-kill-tests.patch
 Patch2:		%{name}-largefile.patch
@@ -36,7 +36,7 @@ BuildRequires:	automake >= 1:1.14
 %{?with_tests:BuildRequires:	gnupg-agent}
 %{?with_tests:BuildRequires:	gnupg-smime}
 BuildRequires:	libassuan-devel >= 1:2.4.2
-BuildRequires:	libgpg-error-devel >= 1.29
+BuildRequires:	libgpg-error-devel >= 1.36
 %{?with_cxx:BuildRequires:	libstdc++-devel >= 6:4.7}
 BuildRequires:	libtool >= 2:2.2.6
 %{?with_python2:BuildRequires:	python-devel >= 1:2.7}
@@ -57,7 +57,7 @@ Suggests:	gnupg >= 1.4.0
 Suggests:	gnupg-smime >= 1.9.8
 Suggests:	gnupg2 >= 2.0.4
 Requires:	libassuan >= 1:2.4.2
-Requires:	libgpg-error >= 1.29
+Requires:	libgpg-error >= 1.36
 Obsoletes:	cryptplug
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -73,7 +73,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki GPGME
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	libassuan-devel >= 1:2.4.2
-Requires:	libgpg-error-devel >= 1.29
+Requires:	libgpg-error-devel >= 1.36
 
 %description devel
 Header files for GPGME library, needed for compiling programs using
