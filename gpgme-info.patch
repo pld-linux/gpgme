@@ -1,7 +1,7 @@
 --- gpgme-0.3.8/doc/gpgme.texi.orig	Thu Jun 20 13:50:46 2002
 +++ gpgme-0.3.8/doc/gpgme.texi	Tue Aug  6 10:44:19 2002
 @@ -2,9 +2,9 @@
- @setfilename gpgme.info
+ @include defs.inc
  @settitle The `GnuPG Made Easy' Reference Manual
  
 -@dircategory GNU Libraries
@@ -11,4 +11,4 @@
 +* @acronym{GPGME}: (gpgme).			Adding support for cryptography to your program
  @end direntry
  
- @include version.texi
+ @c Unify some of the indices.
