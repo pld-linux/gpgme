@@ -19,13 +19,13 @@
 Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
-Version:	1.17.0
+Version:	1.17.1
 Release:	1
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.bz2
-# Source0-md5:	47eced250be5992da38b6c113f6fe3e7
+# Source0-md5:	4d3c7699e1cdd4095d103f7a6833ae3a
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-kill-tests.patch
 Patch2:		%{name}-largefile.patch
@@ -331,7 +331,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc lang/qt/README
 %attr(755,root,root) %{_libdir}/libqgpgme.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libqgpgme.so.7
+%attr(755,root,root) %ghost %{_libdir}/libqgpgme.so.15
 
 %files qt5-devel
 %defattr(644,root,root,755)
