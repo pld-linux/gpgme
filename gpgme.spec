@@ -20,7 +20,7 @@ Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
 Version:	1.17.1
-Release:	2
+Release:	3
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
@@ -30,11 +30,16 @@ Patch0:		%{name}-info.patch
 Patch1:		%{name}-kill-tests.patch
 Patch2:		%{name}-largefile.patch
 Patch3:		%{name}-python.patch
+Patch4:		python3.10.patch
+Patch5:		0001-fix-stupid-ax_python_devel.patch
 URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.14
-%{?with_tests:BuildRequires:	gnupg-agent}
-%{?with_tests:BuildRequires:	gnupg-smime}
+%if %{with tests}
+BuildRequires:	gnupg2
+BuildRequires:	gnupg-agent
+BuildRequires:	gnupg-smime
+%endif
 BuildRequires:	libassuan-devel >= 1:2.4.2
 BuildRequires:	libgpg-error-devel >= 1.36
 %{?with_cxx:BuildRequires:	libstdc++-devel >= 6:4.7}
@@ -228,6 +233,8 @@ PyME to interfejs Pythona do biblioteki GPGME.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
+%patch5 -p1
 
 %build
 %{__libtoolize}
