@@ -45,11 +45,11 @@
 --- gpgme-1.13.0/lang/cpp/src/Makefile.am.orig	2019-03-28 17:43:11.439122747 +0100
 +++ gpgme-1.13.0/lang/cpp/src/Makefile.am	2019-03-28 18:21:29.420006850 +0100
 @@ -65,7 +65,7 @@
- libgpgmepp_la_SOURCES = $(main_sources) $(gpgmepp_headers) context_vanilla.cpp \
                          $(interface_headers) $(private_gpgmepp_headers)
  
--AM_CPPFLAGS = -I$(top_builddir)/src @GPG_ERROR_CFLAGS@ @LIBASSUAN_CFLAGS@ \
-+AM_CPPFLAGS = -I$(top_builddir)/src @GPG_ERROR_CFLAGS@ @LIBASSUAN_CFLAGS@ @FILE_OFFSET_BITS_CPPFLAGS@ \
+ AM_CPPFLAGS = -I$(top_builddir)/src \
+-              @GPGME_CPP_CFLAGS@ @GPG_ERROR_CFLAGS@ @LIBASSUAN_CFLAGS@ \
++              @GPGME_CPP_CFLAGS@ @GPG_ERROR_CFLAGS@ @LIBASSUAN_CFLAGS@ @FILE_OFFSET_BITS_CPPFLAGS@ \
                -DBUILDING_GPGMEPP -Wsuggest-override \
                -Wzero-as-null-pointer-constant
  
