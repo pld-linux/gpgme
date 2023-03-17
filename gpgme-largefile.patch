@@ -56,8 +56,8 @@
 --- gpgme-1.13.0/lang/python/setup.py.in.orig	2018-12-03 10:37:25.000000000 +0100
 +++ gpgme-1.13.0/lang/python/setup.py.in	2019-03-28 18:23:59.565860107 +0100
 @@ -87,9 +87,8 @@
- define_macros = []
- libs = getconfig('libs')
+ else:
+     libs = []
  
 -# Define extra_macros for both the SWIG and C code
 +# append extra_macros to define_macros
@@ -65,10 +65,10 @@
 -    extra_swig_opts.append('-D{0}={1}'.format(k, v))
      define_macros.append((k, str(v)))
  
- for item in getconfig('cflags'):
+ if '@GPGME_CONFIG_CFLAGS@':
 @@ -102,6 +101,10 @@
-         else:
-             define_macros.append((defitem[0], None))
+             else:
+                 define_macros.append((defitem[0], None))
  
 +# use define_macros for both the SWIG and C code
 +for k,v in define_macros:
@@ -79,23 +79,41 @@
  if uname_s.startswith('MINGW32'):
 --- gpgme-1.13.0/lang/qt/src/Makefile.am.orig	2019-03-28 17:43:11.439122747 +0100
 +++ gpgme-1.13.0/lang/qt/src/Makefile.am	2019-03-28 18:21:48.163238642 +0100
-@@ -218,7 +218,7 @@
- libqgpgme_la_SOURCES = $(qgpgme_sources) $(qgpgme_headers) $(private_qgpgme_headers)
+@@ -308,7 +308,7 @@
  
+ if WANT_QT5
  AM_CPPFLAGS = -I$(top_srcdir)/lang/cpp/src -I$(top_builddir)/src \
--              @GPGME_QT_CFLAGS@ @GPG_ERROR_CFLAGS@ @LIBASSUAN_CFLAGS@ \
-+              @GPGME_QT_CFLAGS@ @GPG_ERROR_CFLAGS@ @LIBASSUAN_CFLAGS@ @FILE_OFFSET_BITS_CPPFLAGS@ \
+-              @GPGME_QT5_CFLAGS@ @GPG_ERROR_CFLAGS@ @LIBASSUAN_CFLAGS@ \
++              @GPGME_QT5_CFLAGS@ @GPG_ERROR_CFLAGS@ @LIBASSUAN_CFLAGS@ @FILE_OFFSET_BITS_CPPFLAGS@ \
+               -DBUILDING_QGPGME -Wsuggest-override \
+               -Wzero-as-null-pointer-constant
+ 
+@@ -321,7 +321,7 @@
+ endif
+ if WANT_QT6
+ AM_CPPFLAGS = -I$(top_srcdir)/lang/cpp/src -I$(top_builddir)/src \
+-              @GPGME_QT6_CFLAGS@ @GPG_ERROR_CFLAGS@ @LIBASSUAN_CFLAGS@ \
++              @GPGME_QT6_CFLAGS@ @GPG_ERROR_CFLAGS@ @LIBASSUAN_CFLAGS@ @FILE_OFFSET_BITS_CPPFLAGS@ \
                -DBUILDING_QGPGME -Wsuggest-override \
                -Wzero-as-null-pointer-constant
  
 --- gpgme-1.7.0/lang/qt/tests/Makefile.am.orig	2016-09-20 19:09:38.000000000 +0200
 +++ gpgme-1.7.0/lang/qt/tests/Makefile.am	2016-10-08 09:37:15.642004112 +0200
-@@ -38,7 +38,7 @@
+@@ -53,7 +53,7 @@
  
  AM_CPPFLAGS = -I$(top_srcdir)/lang/cpp/src -I$(top_builddir)/src \
-               @GPG_ERROR_CFLAGS@ @GPGME_QT_CFLAGS@ @GPG_ERROR_CFLAGS@ \
--              @LIBASSUAN_CFLAGS@ @GPGME_QTTEST_CFLAGS@ -DBUILDING_QGPGME \
-+              @LIBASSUAN_CFLAGS@ @GPGME_QTTEST_CFLAGS@ @FILE_OFFSET_BITS_CPPFLAGS@ -DBUILDING_QGPGME \
+               @GPG_ERROR_CFLAGS@ @GPGME_QT5_CFLAGS@ @GPG_ERROR_CFLAGS@ \
+-              @LIBASSUAN_CFLAGS@ @GPGME_QT5TEST_CFLAGS@ -DBUILDING_QGPGME \
++              @LIBASSUAN_CFLAGS@ @GPGME_QT5TEST_CFLAGS@ @FILE_OFFSET_BITS_CPPFLAGS@ -DBUILDING_QGPGME \
                -I$(top_srcdir)/lang/qt/src \
                -DTOP_SRCDIR="$(top_srcdir)"
+ endif
+@@ -64,7 +64,7 @@
  
+ AM_CPPFLAGS = -I$(top_srcdir)/lang/cpp/src -I$(top_builddir)/src \
+               @GPG_ERROR_CFLAGS@ @GPGME_QT6_CFLAGS@ @GPG_ERROR_CFLAGS@ \
+-              @LIBASSUAN_CFLAGS@ @GPGME_QT6TEST_CFLAGS@ -DBUILDING_QGPGME \
++              @LIBASSUAN_CFLAGS@ @GPGME_QT6TEST_CFLAGS@ @FILE_OFFSET_BITS_CPPFLAGS@ -DBUILDING_QGPGME \
+               -I$(top_srcdir)/lang/qt/src \
+               -DTOP_SRCDIR="$(top_srcdir)"
+ endif

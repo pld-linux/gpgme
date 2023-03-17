@@ -4,6 +4,7 @@
 %bcond_without	commonlisp	# Common Lisp interface
 %bcond_without	cxx		# C++ interface (GpgMEpp library)
 %bcond_without	qt5		# Qt 5 interface (QGpgME library), requires cxx
+%bcond_with	qt6		# Qt 6 interface (QGpgME library), requires cxx
 %bcond_without	python		# Python interfaces (PyME, both python2+python3)
 %bcond_without	python2		# Python 2 interface (PyME)
 %bcond_without	python3		# Python 3 interface (PyME)
@@ -15,23 +16,26 @@
 %endif
 %if %{without cxx}
 %undefine	with_qt5
+%undefine	with_qt6
+%endif
+%if %{with qt6}
+%undefine	with_qt5
 %endif
 Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
-Version:	1.18.0
-Release:	2
+Version:	1.19.0
+Release:	1
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.bz2
-# Source0-md5:	98f25a7e494d294c4b2c1a769113510e
+# Source0-md5:	d44f7f6f0c9848d907fb6c6512b15b8c
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-kill-tests.patch
 Patch2:		%{name}-largefile.patch
 Patch3:		%{name}-python.patch
-Patch4:		python3.10.patch
-Patch5:		0001-fix-stupid-ax_python_devel.patch
+Patch4:		0001-fix-stupid-ax_python_devel.patch
 URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.14
@@ -41,8 +45,8 @@ BuildRequires:	gnupg-agent
 BuildRequires:	gnupg-smime
 %endif
 BuildRequires:	libassuan-devel >= 1:2.4.2
-BuildRequires:	libgpg-error-devel >= 1.36
-%{?with_cxx:BuildRequires:	libstdc++-devel >= 6:4.7}
+BuildRequires:	libgpg-error-devel >= 1.46
+%{?with_cxx:BuildRequires:	libstdc++-devel >= 6:5}
 BuildRequires:	libtool >= 2:2.2.6
 %{?with_python2:BuildRequires:	python-devel >= 1:2.7}
 %{?with_python3:BuildRequires:	python3-devel >= 1:3.4}
@@ -57,12 +61,19 @@ BuildRequires:	doxygen
 BuildRequires:	graphviz
 BuildRequires:	qt5-build >= 5.0.0
 %endif
+%if %{with qt6}
+BuildRequires:	Qt6Core-devel >= 6.4.0
+%{?with_tests:BuildRequires:	Qt6Test-devel >= 6.4.0}
+BuildRequires:	doxygen
+BuildRequires:	graphviz
+BuildRequires:	qt6-build >= 6.4.0
+%endif
 BuildConflicts:	gnupg < 1.3.0
 Suggests:	gnupg >= 1.4.0
 Suggests:	gnupg-smime >= 1.9.8
 Suggests:	gnupg2 >= 2.0.4
 Requires:	libassuan >= 1:2.4.2
-Requires:	libgpg-error >= 1.36
+Requires:	libgpg-error >= 1.46
 Obsoletes:	cryptplug
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -78,7 +89,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki GPGME
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	libassuan-devel >= 1:2.4.2
-Requires:	libgpg-error-devel >= 1.36
+Requires:	libgpg-error-devel >= 1.46
 
 %description devel
 Header files for GPGME library, needed for compiling programs using
@@ -186,6 +197,52 @@ Static QGpgME library.
 %description qt5-static -l pl.UTF-8
 Statyczna biblioteka QGpgME.
 
+%package qt6
+Summary:	QGpgME - Qt 6 interface for GPGME library
+Summary(pl.UTF-8):	QGpgME - interfejs Qt 6 do biblioteki GPGME
+License:	GPL v2+ with Qt linking exception
+Group:		Libraries
+Requires:	%{name}-c++ = %{epoch}:%{version}-%{release}
+Requires:	Qt6Core >= 6.4.0
+
+%description qt6
+QGpgME is Qt 6 interface for GPGME library, based on library from
+KF5gpgmepp. QGpgME provides a very high level Qt API around GpgMEpp.
+
+%description qt6 -l pl.UTF-8
+QGpgME to interfejs Qt 6 do biblioteki GPGME, oparty na bibliotece z
+KF5gpgmepp. QGpgME udostępnia API Qt do GpgMEpp bardzo wysokiego
+poziomu.
+
+%package qt6-devel
+Summary:	Header files for QGpgME library
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki QGpgME
+License:	GPL v2+ with Qt linking exception
+Group:		Development/Libraries
+Requires:	%{name}-c++-devel = %{epoch}:%{version}-%{release}
+Requires:	%{name}-qt6 = %{epoch}:%{version}-%{release}
+Requires:	Qt6Core-devel >= 6.4.0
+Conflicts:	kde4-kdepimlibs-devel
+
+%description qt6-devel
+Header files for QGpgME library.
+
+%description qt6-devel -l pl.UTF-8
+Pliki nagłówkowe biblioteki QGpgME.
+
+%package qt6-static
+Summary:	Static QGpgME library
+Summary(pl.UTF-8):	Statyczna biblioteka QGpgME
+License:	GPL v2+ with Qt linking exception
+Group:		Development/Libraries
+Requires:	%{name}-qt6-devel = %{epoch}:%{version}-%{release}
+
+%description qt6-static
+Static QGpgME library.
+
+%description qt6-static -l pl.UTF-8
+Statyczna biblioteka QGpgME.
+
 %package -n common-lisp-gpgme
 Summary:	Common Lisp binding for GPGME library
 Summary(pl.UTF-8):	Wiązanie Common Lispa do biblioteki GPGME
@@ -234,7 +291,6 @@ PyME to interfejs Pythona do biblioteki GPGME.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
 
 %build
 %{__libtoolize}
@@ -253,7 +309,7 @@ PyME to interfejs Pythona do biblioteki GPGME.
 	--disable-gpgconf-test \
 	--disable-gpgsm-test \
 %endif
-	--enable-languages="%{?with_commonlisp:cl} %{?with_cxx:cpp} %{?with_python2:python%{!?with_python3:2}} %{?with_python3:%{!?with_python2:python3}} %{?with_qt5:qt}" \
+	--enable-languages="%{?with_commonlisp:cl} %{?with_cxx:cpp} %{?with_python2:python%{!?with_python3:2}} %{?with_python3:%{!?with_python2:python3}} %{?with_qt5:qt5} %{?with_qt6:qt6}" \
 	%{?with_static_libs:--enable-static}
 
 %{__make}
@@ -289,6 +345,9 @@ rm -rf $RPM_BUILD_ROOT
 %post	qt5 -p /sbin/ldconfig
 %postun	qt5 -p /sbin/ldconfig
 
+%post	qt6 -p /sbin/ldconfig
+%postun	qt6 -p /sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README NEWS THANKS TODO
@@ -299,7 +358,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/gpgme-config
 %attr(755,root,root) %{_libdir}/libgpgme.so
 %{_libdir}/libgpgme.la
 %{_includedir}/gpgme.h
@@ -352,6 +410,28 @@ rm -rf $RPM_BUILD_ROOT
 %files qt5-static
 %defattr(644,root,root,755)
 %{_libdir}/libqgpgme.a
+%endif
+%endif
+
+%if %{with qt6}
+%files qt6
+%defattr(644,root,root,755)
+%doc lang/qt/README
+%attr(755,root,root) %{_libdir}/libqgpgmeqt6.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libqgpgmeqt6.so.15
+
+%files qt6-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libqgpgmeqt6.so
+%{_libdir}/libqgpgmeqt6.la
+%{_includedir}/QGpgME
+%{_includedir}/qgpgme
+%{_libdir}/cmake/QGpgmeQt6
+
+%if %{with static_libs}
+%files qt6-static
+%defattr(644,root,root,755)
+%{_libdir}/libqgpgmeqt6.a
 %endif
 %endif
 %endif
