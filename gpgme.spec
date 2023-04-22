@@ -74,7 +74,7 @@ Suggests:	gnupg-smime >= 1.9.8
 Suggests:	gnupg2 >= 2.0.4
 Requires:	libassuan >= 1:2.4.2
 Requires:	libgpg-error >= 1.46
-Obsoletes:	cryptplug
+Obsoletes:	cryptplug < 0.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
