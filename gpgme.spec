@@ -24,15 +24,15 @@
 Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
-Version:	1.20.0
+Version:	1.21.0
 Release:	1
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.bz2
-# Source0-md5:	526949233610f46655741cafd09e66a7
+# Source0-md5:	3a83288e753a7da53a5626d29e4416fd
 Patch0:		%{name}-info.patch
-Patch1:		%{name}-kill-tests.patch
+Patch1:		orig-version.patch
 Patch2:		%{name}-largefile.patch
 Patch3:		%{name}-python.patch
 Patch4:		0001-fix-stupid-ax_python_devel.patch
@@ -451,7 +451,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_sitedir}/gpg/_gpgme.so
 %{py_sitedir}/gpg/*.py[co]
 %{py_sitedir}/gpg/constants
-%{py_sitedir}/gpg-%{version}_unknown-py*.egg-info
+%{py_sitedir}/gpg-%{version}-py*.egg-info
 %endif
 
 %if %{with python3}
@@ -463,5 +463,5 @@ rm -rf $RPM_BUILD_ROOT
 %{py3_sitedir}/gpg/*.py
 %{py3_sitedir}/gpg/__pycache__
 %{py3_sitedir}/gpg/constants
-%{py3_sitedir}/gpg-%{version}_unknown-py*.egg-info
+%{py3_sitedir}/gpg-%{version}-py*.egg-info
 %endif
