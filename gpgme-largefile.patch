@@ -100,20 +100,20 @@
 --- gpgme-1.7.0/lang/qt/tests/Makefile.am.orig	2016-09-20 19:09:38.000000000 +0200
 +++ gpgme-1.7.0/lang/qt/tests/Makefile.am	2016-10-08 09:37:15.642004112 +0200
 @@ -53,7 +53,7 @@
- 
- AM_CPPFLAGS = -I$(top_srcdir)/lang/cpp/src -I$(top_builddir)/src \
+ AM_CPPFLAGS = -I$(top_srcdir)/lang/qt/src -I$(top_srcdir)/lang/cpp/src \
+               -I$(top_builddir)/src \
                @GPG_ERROR_CFLAGS@ @GPGME_QT5_CFLAGS@ @GPG_ERROR_CFLAGS@ \
 -              @LIBASSUAN_CFLAGS@ @GPGME_QT5TEST_CFLAGS@ -DBUILDING_QGPGME \
 +              @LIBASSUAN_CFLAGS@ @GPGME_QT5TEST_CFLAGS@ @FILE_OFFSET_BITS_CPPFLAGS@ -DBUILDING_QGPGME \
-               -I$(top_srcdir)/lang/qt/src \
                -DTOP_SRCDIR="$(top_srcdir)"
  endif
+ if WANT_QT6
 @@ -64,7 +64,7 @@
- 
- AM_CPPFLAGS = -I$(top_srcdir)/lang/cpp/src -I$(top_builddir)/src \
+ AM_CPPFLAGS = -I$(top_srcdir)/lang/qt/src -I$(top_srcdir)/lang/cpp/src \
+               -I$(top_builddir)/src \
                @GPG_ERROR_CFLAGS@ @GPGME_QT6_CFLAGS@ @GPG_ERROR_CFLAGS@ \
 -              @LIBASSUAN_CFLAGS@ @GPGME_QT6TEST_CFLAGS@ -DBUILDING_QGPGME \
 +              @LIBASSUAN_CFLAGS@ @GPGME_QT6TEST_CFLAGS@ @FILE_OFFSET_BITS_CPPFLAGS@ -DBUILDING_QGPGME \
-               -I$(top_srcdir)/lang/qt/src \
                -DTOP_SRCDIR="$(top_srcdir)"
  endif
+ 

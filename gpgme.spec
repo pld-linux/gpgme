@@ -24,19 +24,18 @@
 Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
-Version:	1.22.0
+Version:	1.23.0
 Release:	1
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/gpgme/%{name}-%{version}.tar.bz2
-# Source0-md5:	828b8a1f9992826d7ad43741b349db01
+# Source0-md5:	e64d32e248b353314d2c3781d5ba0e06
 Patch0:		%{name}-info.patch
 Patch1:		orig-version.patch
 Patch2:		%{name}-largefile.patch
 Patch3:		%{name}-python.patch
 Patch4:		0001-fix-stupid-ax_python_devel.patch
-Patch5:		%{name}-qt-tests.patch
 URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.14
@@ -292,7 +291,6 @@ PyME to interfejs Pythona do biblioteki GPGME.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
 
 %build
 %{__libtoolize}
