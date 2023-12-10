@@ -1,0 +1,40 @@
+--- gpgme-1.23.2/configure.ac.orig	2023-12-10 13:18:29.793064885 +0100
++++ gpgme-1.23.2/configure.ac	2023-12-10 13:21:03.640010838 +0100
+@@ -545,28 +545,7 @@
+ 
+ AM_CONDITIONAL(WANT_QT5, test "$want_qt5" = yes)
+ AM_CONDITIONAL(WANT_QT6, test "$want_qt6" = yes)
+-
+-# Check for tools for building the Qt binding docs
+-if test "$want_qt5" = "yes" -o "$want_qt6" = "yes"; then
+-    AC_CHECK_PROGS([DOXYGEN], [doxygen])
+-    if test -z "$DOXYGEN"; then
+-        # This is not highlighted because it's not really important.
+-        AC_MSG_WARN([Doxygen not found - Qt binding doc will not be built.])
+-    fi
+-    AC_CHECK_PROGS([GRAPHVIZ], [dot])
+-    if test -z "$GRAPHVIZ"; then
+-        AC_MSG_WARN([Graphviz not found - Qt binding doc will not have diagrams.])
+-    fi
+-fi
+-
+-AM_CONDITIONAL([HAVE_DOXYGEN],
+-               [test -n "$DOXYGEN"])
+-if test -n "$GRAPHVIZ"; then
+-    HAVE_DOT="YES"
+-else
+-    HAVE_DOT="NO"
+-fi
+-AC_SUBST(HAVE_DOT)
++AM_CONDITIONAL([HAVE_DOXYGEN], 0)
+ 
+ # Python bindings.
+ LIST_MEMBER("python", $enabled_languages)
+@@ -1135,7 +1114,6 @@
+ AC_CONFIG_FILES(lang/qt/tests/Makefile)
+ AC_CONFIG_FILES(lang/qt/src/qgpgme_version.h)
+ AC_CONFIG_FILES([lang/Makefile lang/cl/Makefile lang/cl/gpgme.asd])
+-AM_COND_IF([HAVE_DOXYGEN], [AC_CONFIG_FILES([lang/qt/doc/Doxyfile])])
+ AC_CONFIG_FILES([lang/js/Makefile lang/js/src/Makefile
+                  lang/js/BrowserTestExtension/Makefile
+                  lang/js/DemoExtension/Makefile])

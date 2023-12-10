@@ -9,6 +9,7 @@
 %bcond_without	python2		# Python 2 interface (PyME)
 %bcond_without	python3		# Python 3 interface (PyME)
 %bcond_without	tests		# perform tests
+%bcond_without	docs		# Qt binding docs
 #
 %if %{without python}
 %undefine	with_python2
@@ -36,6 +37,7 @@ Patch1:		orig-version.patch
 Patch2:		%{name}-largefile.patch
 Patch3:		%{name}-python.patch
 Patch4:		0001-fix-stupid-ax_python_devel.patch
+Patch5:		no_docs.patch
 URL:		http://www.gnupg.org/gpgme.html
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.14
@@ -57,15 +59,19 @@ BuildRequires:	texinfo
 %if %{with qt5}
 BuildRequires:	Qt5Core-devel >= 5.0.0
 %{?with_tests:BuildRequires:	Qt5Test-devel >= 5.8.0}
+%if %{with docs}
 BuildRequires:	doxygen
 BuildRequires:	graphviz
+%endif
 BuildRequires:	qt5-build >= 5.0.0
 %endif
 %if %{with qt6}
 BuildRequires:	Qt6Core-devel >= 6.4.0
 %{?with_tests:BuildRequires:	Qt6Test-devel >= 6.4.0}
+%if %{with docs}
 BuildRequires:	doxygen
 BuildRequires:	graphviz
+%endif
 BuildRequires:	qt6-build >= 6.4.0
 %endif
 BuildConflicts:	gnupg < 1.3.0
@@ -291,6 +297,7 @@ PyME to interfejs Pythona do biblioteki GPGME.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%{!?with_docs:%patch5 -p1}
 
 %build
 %{__libtoolize}
@@ -299,8 +306,9 @@ PyME to interfejs Pythona do biblioteki GPGME.
 %{__autoheader}
 %{__automake}
 # in enable-languages:
-# "python" means both pythons (if available), "python2" just python2, "python3" just python3
-# (cannot specify "python2 python3" due to script limitations)
+# "python" means all installed python version (if any)
+# option to choose python2 and/or python3 explicitly was removed long time ago
+# https://github.com/gpg/gpgme/commit/ff6ff616aea6f59b7f2ce1176492850ecdf3851e
 %configure \
 	PACKAGE_VERSION=%{version} \
 %if %{without tests}
@@ -309,7 +317,7 @@ PyME to interfejs Pythona do biblioteki GPGME.
 	--disable-gpgconf-test \
 	--disable-gpgsm-test \
 %endif
-	--enable-languages="%{?with_commonlisp:cl} %{?with_cxx:cpp} %{?with_python2:python%{!?with_python3:2}} %{?with_python3:%{!?with_python2:python3}} %{?with_qt5:qt5} %{?with_qt6:qt6}" \
+	--enable-languages="%{?with_commonlisp:cl} %{?with_cxx:cpp} %{?with_python:python} %{?with_qt5:qt5} %{?with_qt6:qt6}" \
 	%{?with_static_libs:--enable-static}
 
 %{__make}
