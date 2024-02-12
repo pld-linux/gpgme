@@ -3,8 +3,8 @@
 %bcond_without	static_libs	# do not build static libraries
 %bcond_without	commonlisp	# Common Lisp interface
 %bcond_without	cxx		# C++ interface (GpgMEpp library)
-%bcond_without	qt5		# Qt 5 interface (QGpgME library), requires cxx
-%bcond_with	qt6		# Qt 6 interface (QGpgME library), requires cxx
+%bcond_with	qt5		# Qt 5 interface (QGpgME library), requires cxx
+%bcond_without	qt6		# Qt 6 interface (QGpgME library), requires cxx
 %bcond_without	python		# Python interfaces (PyME, both python2+python3)
 %bcond_without	python2		# Python 2 interface (PyME)
 %bcond_without	python3		# Python 3 interface (PyME)
@@ -26,7 +26,7 @@ Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
 Version:	1.23.2
-Release:	1
+Release:	2
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
