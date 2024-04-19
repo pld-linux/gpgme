@@ -3,7 +3,7 @@
 %bcond_without	static_libs	# do not build static libraries
 %bcond_without	commonlisp	# Common Lisp interface
 %bcond_without	cxx		# C++ interface (GpgMEpp library)
-%bcond_with	qt5		# Qt 5 interface (QGpgME library), requires cxx
+%bcond_without	qt5		# Qt 5 interface (QGpgME library), requires cxx
 %bcond_without	qt6		# Qt 6 interface (QGpgME library), requires cxx
 %bcond_without	python		# Python interfaces (PyME, both python2+python3)
 %bcond_without	python2		# Python 2 interface (PyME)
@@ -19,14 +19,11 @@
 %undefine	with_qt5
 %undefine	with_qt6
 %endif
-%if %{with qt6}
-%undefine	with_qt5
-%endif
 Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
 Version:	1.23.2
-Release:	2
+Release:	3
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
@@ -38,7 +35,7 @@ Patch2:		%{name}-largefile.patch
 Patch3:		%{name}-python.patch
 Patch4:		0001-fix-stupid-ax_python_devel.patch
 Patch5:		no_docs.patch
-URL:		http://www.gnupg.org/gpgme.html
+URL:		https://www.gnupg.org/related_software/gpgme/
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.14
 %if %{with tests}
@@ -49,6 +46,7 @@ BuildRequires:	gnupg-smime
 BuildRequires:	libassuan-devel >= 1:2.4.2
 BuildRequires:	libgpg-error-devel >= 1.46
 %{?with_cxx:BuildRequires:	libstdc++-devel >= 6:5}
+%{?with_qt6:BuildRequires:	libstdc++-devel >= 6:7}
 BuildRequires:	libtool >= 2:2.2.6
 %{?with_python2:BuildRequires:	python-devel >= 1:2.7}
 %{?with_python3:BuildRequires:	python3-devel >= 1:3.4}
@@ -307,9 +305,9 @@ PyME to interfejs Pythona do biblioteki GPGME.
 %{__automake}
 # in enable-languages:
 # "python" means all installed python version (if any)
-# option to choose python2 and/or python3 explicitly was removed long time ago
-# https://github.com/gpg/gpgme/commit/ff6ff616aea6f59b7f2ce1176492850ecdf3851e
-%configure \
+install -d build
+cd build
+../%configure \
 	PACKAGE_VERSION=%{version} \
 %if %{without tests}
 	--disable-g13-test \
@@ -317,16 +315,40 @@ PyME to interfejs Pythona do biblioteki GPGME.
 	--disable-gpgconf-test \
 	--disable-gpgsm-test \
 %endif
-	--enable-languages="%{?with_commonlisp:cl} %{?with_cxx:cpp} %{?with_python:python} %{?with_qt5:qt5} %{?with_qt6:qt6}" \
+	--enable-languages="%{?with_commonlisp:cl} %{?with_cxx:cpp} %{?with_python:python} %{?with_qt5:qt5}" \
 	%{?with_static_libs:--enable-static}
 
 %{__make}
+cd ..
+
+%if %{with qt6}
+# qt6 is mutually exclusive with qt5 in upstream build system, so build in additional step
+install -d build-qt6
+cd build-qt6
+
+../%configure \
+	PACKAGE_VERSION=%{version} \
+	--disable-g13-test \
+	--disable-gpg-test \
+	--disable-gpgconf-test \
+	--disable-gpgsm-test \
+	--enable-languages="cpp qt6" \
+	%{?with_static_libs:--enable-static}
+
+%{__make}
+cd ..
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
+%{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%if %{with qt6}
+%{__make} -C build-qt6 install \
+	DESTDIR=$RPM_BUILD_ROOT
+%endif
 
 # Win32 specific
 %{__rm} $RPM_BUILD_ROOT%{_pkgconfigdir}/gpgme-glib.pc
@@ -410,6 +432,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libqgpgme.so
 %{_libdir}/libqgpgme.la
+# XXX: headers shared with qt6
 %{_includedir}/QGpgME
 %{_includedir}/qgpgme
 %{_libdir}/cmake/QGpgme
@@ -432,6 +455,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libqgpgmeqt6.so
 %{_libdir}/libqgpgmeqt6.la
+# XXX: headers shared with qt5
 %{_includedir}/QGpgME
 %{_includedir}/qgpgme
 %{_libdir}/cmake/QGpgmeQt6
