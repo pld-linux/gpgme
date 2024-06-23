@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without	static_libs	# do not build static libraries
+%bcond_without	static_libs	# static libraries
 %bcond_without	commonlisp	# Common Lisp interface
 %bcond_without	cxx		# C++ interface (GpgMEpp library)
 %bcond_without	qt5		# Qt 5 interface (QGpgME library), requires cxx
@@ -23,7 +23,7 @@ Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
 Version:	1.23.2
-Release:	3
+Release:	4
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
@@ -353,6 +353,9 @@ rm -rf $RPM_BUILD_ROOT
 # Win32 specific
 %{__rm} $RPM_BUILD_ROOT%{_pkgconfigdir}/gpgme-glib.pc
 
+# obsoleted by pkg-config/cmake configs
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/lib*.la
+
 %if %{with python2}
 %py_postclean
 %endif
@@ -389,7 +392,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgpgme.so
-%{_libdir}/libgpgme.la
 %{_includedir}/gpgme.h
 %{_pkgconfigdir}/gpgme.pc
 %{_aclocaldir}/gpgme.m4
@@ -411,7 +413,6 @@ rm -rf $RPM_BUILD_ROOT
 %files c++-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgpgmepp.so
-%{_libdir}/libgpgmepp.la
 %{_includedir}/gpgme++
 %{_libdir}/cmake/Gpgmepp
 
@@ -431,7 +432,6 @@ rm -rf $RPM_BUILD_ROOT
 %files qt5-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libqgpgme.so
-%{_libdir}/libqgpgme.la
 # XXX: headers shared with qt6
 %{_includedir}/QGpgME
 %{_includedir}/qgpgme
@@ -454,7 +454,6 @@ rm -rf $RPM_BUILD_ROOT
 %files qt6-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libqgpgmeqt6.so
-%{_libdir}/libqgpgmeqt6.la
 # XXX: headers shared with qt5
 %{_includedir}/QGpgME
 %{_includedir}/qgpgme
