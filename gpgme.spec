@@ -9,7 +9,7 @@
 %bcond_without	python2		# Python 2 interface (PyME)
 %bcond_without	python3		# Python 3 interface (PyME)
 %bcond_without	tests		# perform tests
-%bcond_without	docs		# Qt binding docs
+%bcond_without	docs		# Qt binding docs (disable for bootstrap: loop through graphviz)
 #
 %if %{without python}
 %undefine	with_python2
@@ -23,7 +23,7 @@ Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
 Version:	1.23.2
-Release:	5
+Release:	6
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
