@@ -22,19 +22,18 @@
 Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
-Version:	1.23.2
-Release:	6
+Version:	1.24.0
+Release:	1
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	https://www.gnupg.org/ftp/gcrypt/gpgme/%{name}-%{version}.tar.bz2
-# Source0-md5:	01a8c05b409847e87daf0543e91f8c37
+# Source0-md5:	b1089097da4cd0520e3fee850f5fcbff
 Patch0:		%{name}-info.patch
 Patch1:		orig-version.patch
 Patch2:		%{name}-largefile.patch
 Patch3:		%{name}-python.patch
-Patch4:		0001-fix-stupid-ax_python_devel.patch
-Patch5:		no_docs.patch
+Patch4:		no_docs.patch
 URL:		https://www.gnupg.org/related_software/gpgme/
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.14
@@ -44,12 +43,12 @@ BuildRequires:	gnupg-agent
 BuildRequires:	gnupg-smime
 %endif
 BuildRequires:	libassuan-devel >= 1:2.4.2
-BuildRequires:	libgpg-error-devel >= 1.46
+BuildRequires:	libgpg-error-devel >= 1.47
 %{?with_cxx:BuildRequires:	libstdc++-devel >= 6:5}
 %{?with_qt6:BuildRequires:	libstdc++-devel >= 6:7}
 BuildRequires:	libtool >= 2:2.2.6
 %{?with_python2:BuildRequires:	python-devel >= 1:2.7}
-%{?with_python3:BuildRequires:	python3-devel >= 1:3.4}
+%{?with_python3:BuildRequires:	python3-devel >= 1:3.6}
 %{?with_python:BuildRequires:	rpm-pythonprov}
 BuildRequires:	rpmbuild(macros) >= 1.219
 %{?with_python:BuildRequires:	swig-python}
@@ -77,7 +76,7 @@ Suggests:	gnupg >= 1.4.0
 Suggests:	gnupg-smime >= 1.9.8
 Suggests:	gnupg2 >= 2.0.4
 Requires:	libassuan >= 1:2.4.2
-Requires:	libgpg-error >= 1.46
+Requires:	libgpg-error >= 1.47
 Obsoletes:	cryptplug < 0.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -93,7 +92,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki GPGME
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	libassuan-devel >= 1:2.4.2
-Requires:	libgpg-error-devel >= 1.46
+Requires:	libgpg-error-devel >= 1.47
 
 %description devel
 Header files for GPGME library, needed for compiling programs using
@@ -279,7 +278,7 @@ Summary:	PyME - Python 3 interface for GPGME library
 Summary(pl.UTF-8):	PyME - interfejs Pythona 3 do biblioteki GPGME
 Group:		Libraries/Python
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	python3-libs >= 1:3.4
+Requires:	python3-libs >= 1:3.6
 Obsoletes:	python3-pyme < 1.8.0
 
 %description -n python3-gpg
@@ -294,8 +293,7 @@ PyME to interfejs Pythona do biblioteki GPGME.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
-%{!?with_docs:%patch5 -p1}
+%{!?with_docs:%patch4 -p1}
 
 %build
 %{__libtoolize}
@@ -305,9 +303,7 @@ PyME to interfejs Pythona do biblioteki GPGME.
 %{__automake}
 # in enable-languages:
 # "python" means all installed python version (if any)
-install -d build
-cd build
-../%configure \
+%configure \
 	PACKAGE_VERSION=%{version} \
 %if %{without tests}
 	--disable-g13-test \
@@ -315,40 +311,16 @@ cd build
 	--disable-gpgconf-test \
 	--disable-gpgsm-test \
 %endif
-	--enable-languages="%{?with_commonlisp:cl} %{?with_cxx:cpp} %{?with_python:python} %{?with_qt5:qt5}" \
+	--enable-languages="%{?with_commonlisp:cl} %{?with_cxx:cpp} %{?with_python:python} %{?with_qt5:qt5} %{?with_qt6:qt6}" \
 	%{?with_static_libs:--enable-static}
 
 %{__make}
-cd ..
-
-%if %{with qt6}
-# qt6 is mutually exclusive with qt5 in upstream build system, so build in additional step
-install -d build-qt6
-cd build-qt6
-
-../%configure \
-	PACKAGE_VERSION=%{version} \
-	--disable-g13-test \
-	--disable-gpg-test \
-	--disable-gpgconf-test \
-	--disable-gpgsm-test \
-	--enable-languages="cpp qt6" \
-	%{?with_static_libs:--enable-static}
-
-%{__make}
-cd ..
-%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} -C build install \
+%{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-%if %{with qt6}
-%{__make} -C build-qt6 install \
-	DESTDIR=$RPM_BUILD_ROOT
-%endif
 
 # Win32 specific
 %{__rm} $RPM_BUILD_ROOT%{_pkgconfigdir}/gpgme-glib.pc
@@ -388,6 +360,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/gpgme-tool
 %attr(755,root,root) %{_libdir}/libgpgme.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgpgme.so.11
+%{_mandir}/man1/gpgme-json.1*
 
 %files devel
 %defattr(644,root,root,755)
@@ -415,6 +388,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgpgmepp.so
 %{_includedir}/gpgme++
 %{_libdir}/cmake/Gpgmepp
+%{_pkgconfigdir}/gpgmepp.pc
 
 %if %{with static_libs}
 %files c++-static
@@ -432,9 +406,7 @@ rm -rf $RPM_BUILD_ROOT
 %files qt5-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libqgpgme.so
-# XXX: headers shared with qt6
-%{_includedir}/QGpgME
-%{_includedir}/qgpgme
+%{_includedir}/qgpgme-qt5
 %{_libdir}/cmake/QGpgme
 
 %if %{with static_libs}
@@ -454,9 +426,7 @@ rm -rf $RPM_BUILD_ROOT
 %files qt6-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libqgpgmeqt6.so
-# XXX: headers shared with qt5
-%{_includedir}/QGpgME
-%{_includedir}/qgpgme
+%{_includedir}/qgpgme-qt6
 %{_libdir}/cmake/QGpgmeQt6
 
 %if %{with static_libs}

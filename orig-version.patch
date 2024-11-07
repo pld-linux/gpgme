@@ -1,7 +1,7 @@
 --- gpgme-1.21.0/autogen.sh.orig	2023-03-15 16:05:10.000000000 +0100
 +++ gpgme-1.21.0/autogen.sh	2023-07-10 20:26:10.388981298 +0200
 @@ -266,6 +266,11 @@
-       [ -n "$tmp" ] && beta=yes
+       cid=$(git rev-parse --verify HEAD | tr -d '\n\r')
        rev=$(git rev-parse --short HEAD | tr -d '\n\r')
        rvd=$((0x$(echo ${rev} | dd bs=1 count=4 2>/dev/null)))
 +    elif [ -f VERSION ]; then
