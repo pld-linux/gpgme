@@ -7,13 +7,13 @@
 Summary:	Library for accessing GnuPG
 Summary(pl.UTF-8):	Biblioteka dająca dostęp do funkcji GnuPG
 Name:		gpgme
-Version:	2.1.2
+Version:	2.2.0
 Release:	1
 Epoch:		1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	https://www.gnupg.org/ftp/gcrypt/gpgme/%{name}-%{version}.tar.bz2
-# Source0-md5:	58448073da13a22e878adfb22a988d4d
+# Source0-md5:	f27b213cd9eedf34f1b7f5abb06a9af8
 Patch0:		%{name}-info.patch
 Patch1:		orig-version.patch
 Patch2:		%{name}-largefile.patch
@@ -111,11 +111,16 @@ Wiązanie Common Lispa do biblioteki GPGME.
 
 %{__make}
 
+%if %{with tests}
+%{__make} check
+%endif
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	AM_UPDATE_INFO_DIR=no
 
 # Win32 specific
 %{__rm} $RPM_BUILD_ROOT%{_pkgconfigdir}/gpgme-glib.pc
